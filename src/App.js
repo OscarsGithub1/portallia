@@ -9,6 +9,8 @@ import Example from './components/example';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
+import UserList from './components/Userlist.jsx';
+import NewWorkTaskCard from './components/worktask.jsx';
 
 
 
@@ -19,12 +21,16 @@ function App() {
       <Navbar/>
       <Switch>
         <Route path="/Register">
-          
+          <NewWorkTaskCard/>
+        <UserList/> 
         <Register/>
+        
+
         </Route >
         <Route path="/login">
         <Login/>
         </Route>
+        
       </Switch>
       
      
