@@ -1,5 +1,6 @@
 
 import './App.css';
+import './Footer.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Header from './components/Navbar.jsx';
@@ -11,6 +12,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import UserList from './components/Userlist.jsx';
 import NewWorkTaskCard from './components/worktask.jsx';
+import Footer from './components/Footer.jsx';
+
 
 
 
@@ -33,9 +36,10 @@ function App() {
         
       </Switch>
       
-     
     </div>
+      <Footer/>
     </Router>
+
   );
 }
 
