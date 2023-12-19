@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import UserList from './components/Userlist.jsx';
 import NewWorkTaskCard from './components/worktask.jsx';
+import Home from './components/Home.jsx';
 
 
 
@@ -30,7 +31,10 @@ function App() {
         <Route path="/login">
         <Login/>
         </Route>
-        
+        <Route path="/home">
+          <Home/>
+
+        </Route>
       </Switch>
       
      

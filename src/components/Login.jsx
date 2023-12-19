@@ -1,5 +1,6 @@
-// Login.js
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom'; // Import useHistory
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -8,6 +9,8 @@ const Login = () => {
     password: '',
   });
 
+  const history = useHistory(); // Initialize useHistory
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -15,10 +18,22 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log('Form submitted:', formData);
+
+    try {
+      const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
+      const loginResponse = response.data;
+
+      // Store the token in localStorage
+      localStorage.setItem('token', loginResponse.token);
+
+      // Redirect to home page on successful login
+      history.push('/home');
+      console.log('Login successful');
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   return (
