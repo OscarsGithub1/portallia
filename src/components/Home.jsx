@@ -1,5 +1,6 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
+import OngoingTasks from './Cards/OngoingTasks'
 
 function Home() {
   return (
@@ -10,6 +11,8 @@ function Home() {
         <Navbar/>
 
         <h1>HomePage</h1>
+
+        <OngoingTasks/>
     </div>
   )
 }
