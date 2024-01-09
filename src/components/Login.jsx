@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; // Import useHistory
+import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
 
-  const history = useHistory(); // Initialize useHistory
+  const history = useHistory(); // Use useHistory for navigation
 
   const handleChange = (e) => {
     setFormData({
@@ -28,11 +28,17 @@ const Login = () => {
       // Store the token in localStorage
       localStorage.setItem('token', loginResponse.token);
 
+      // Inform App.js about the successful login
+      onLogin(true);
+
       // Redirect to home page on successful login
       history.push('/home');
-      console.log('Login successful');
+      console.log('Login successful', loginResponse);
     } catch (error) {
       console.error('Login error:', error);
+
+      // Inform App.js about the failed login
+      onLogin(false);
     }
   };
 
