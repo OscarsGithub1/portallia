@@ -25,8 +25,10 @@ const Login = ({ onLogin }) => {
       const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
       const loginResponse = response.data;
 
-      // Store the token in localStorage
+      // Store the token and user ID in localStorage
       localStorage.setItem('token', loginResponse.token);
+      localStorage.setItem('userId', loginResponse.user.id); // Automatically store logged-in user ID
+      
 
       // Inform App.js about the successful login
       onLogin(true);
