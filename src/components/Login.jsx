@@ -9,7 +9,7 @@ const Login = ({ onLogin }) => {
     password: '',
   });
 
-  const history = useHistory(); // Use useHistory for navigation
+  const history = useHistory();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,71 +20,49 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
-      const loginResponse = response.data;
-
-      // Store the token and user ID in localStorage
-      localStorage.setItem('token', loginResponse.token);
-      localStorage.setItem('userId', loginResponse.user.id); // Automatically store logged-in user ID
-      
-
-      // Inform App.js about the successful login
-      onLogin(true);
-
-      // Redirect to home page on successful login
-      history.push('/home');
-      console.log('Login successful', loginResponse);
+      if (response.status === 200 && response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        onLogin(response.data.token);
+        history.push('/home'); // Redirect to the home page or another page of your choice
+      } else {
+        // Handle login failure (e.g., display an error message)
+      }
     } catch (error) {
-      console.error('Login error:', error);
-
-      // Inform App.js about the failed login
-      onLogin(false);
+      // Handle errors (e.g., display an error message)
     }
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100">
-      <div className="card p-4 shadow" style={{ maxWidth: '400px' }}>
-        <h2 className="text-center mb-4">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-        </form>
-        <p className="mt-3 text-center">
-          Don't have an account? <a href="/register">Register</a>
-        </p>
-      </div>
+    <div className="login-container">
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
+      </form>
     </div>
   );
 };
