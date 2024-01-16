@@ -6,6 +6,8 @@ import Register from './components/Register';
 import Home from './components/Home';
 import PrivateRoute from './components/PrivateRoute';
 import CompanyList from './components/CompanyList'; // Assuming you have this component
+import BusinessOpportunities from './components/BusinessOpportunities'; // Import the BusinessOpportunities component
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,6 +42,8 @@ function App() {
           </Route>
           <PrivateRoute path="/home" component={Home} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/companies" component={CompanyList} isAuthenticated={isLoggedIn} />
+          <PrivateRoute path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
+
           <Redirect from="/" exact to={isLoggedIn ? "/home" : "/login"} />
         </Switch>
       </div>
