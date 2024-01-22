@@ -32,16 +32,16 @@ const Navbar = () => {
         {/* Left-side Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
           <div className="navbar-nav me-auto">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/companies">
               Företag
             </a>
             <a className="nav-link" href="#">
               Aktiviteter
             </a>
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/business-opportunities">
               Affärsmöjligheter
             </a>
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/deals">
               Avtal
             </a>
             <a className="nav-link" href="#">
