@@ -1,60 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import CreateWorkTaskOpportunity from './CreateWorkTaskOpporunity'; // Make sure the path is correct
+import backgroundImage from '../assets/images/shutterstock_451288924-1_grey.jpg'; // Adjust the path as necessary
 
-// Import your image with a relative path
-import backgroundImage from '../assets/images/shutterstock_451288924-1_grey.jpg';
 
-const backgroundStyle = {
-  backgroundImage: `url(${backgroundImage})`,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  backgroundAttachment: 'fixed',
-  minHeight: '100vh',
-};
 
-const BusinessOpportunities = () => {
-  // Single hardcoded sample data
-  const opportunity = {
-    id: 2790,
-    nummer: '2790',
-    namn: 'LIA EuroBonus AB',
-    beskrivning: 'LIA3 Dokumentation SAP',
-    datum: '2024-01-15',
-    Totalvärde: '0',
-    Pipelinesnivå: '1',
-    försäljningsansvarig: 'Anna Almén',
-  };
+function BusinessOpportunities() {
+    const [workTaskOpportunities, setWorkTaskOpportunities] = useState([]);
 
-  return (
-    <div style={backgroundStyle}>
-      <div className="container mt-4">
-        <h2>Business Opportunities</h2>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Nummer</th>
-              <th scope="col">För. Namn</th>
-              <th scope="col">Beskrivning</th>
-              <th scope="col">Datum</th>
-              <th scope="col">Totalvärde</th>
-              <th scope="col">Pipelinesnivå</th>
-              <th scope="col">Försäljningsansvarig</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{opportunity.nummer}</th>
-              <td>{opportunity.namn}</td>
-              <td>{opportunity.beskrivning}</td>
-              <td>{opportunity.datum}</td>
-              <td>{opportunity.Totalvärde}</td>
-              <td>{opportunity.Pipelinesnivå}</td>
-              <td>{opportunity.försäljningsansvarig}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+        const endpoint = `https://localhost:7042/worktaskopportunity/${userId}`;
+
+        axios.get(endpoint, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            setWorkTaskOpportunities(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching WorkTaskOpportunities:', error);
+        });
+    }, []);
+
+    const backgroundStyle = {
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh'
+    };
+
+    return (
+      
+        <div style={backgroundStyle}> {/* Use backgroundStyle here */}
+
+            <div className="container mt-4">
+            <h2 className="mb-3">Your Work Task Opportunities</h2>
+            
+            {workTaskOpportunities.length ? (
+              
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Is Closed</th>
+                            <th scope="col">Pipeline Level</th>
+                            <th scope="col">Sales Responsible</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {workTaskOpportunities.map(opportunity => (
+                            <tr key={opportunity.id}>
+                                <th scope="row">{opportunity.id}</th>
+                                <td>{opportunity.company}</td>
+                                <td>{opportunity.description}</td>
+                                <td>{new Date(opportunity.opportunityDate).toLocaleDateString()}</td>
+                                <td>{opportunity.opportunityValue}</td>
+                                <td>{opportunity.isClosed ? 'Yes' : 'No'}</td>
+                                <td>{opportunity.pipelineLevel}</td>
+                                <td>{opportunity.salesResponsible}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No Work Task Opportunities available.</p>
+            )}
+    <CreateWorkTaskOpportunity/>
+
+        </div>
     </div>
-  );
-};
+        
+    );
+}
 
 export default BusinessOpportunities;
