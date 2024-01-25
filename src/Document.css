@@ -1,0 +1,25 @@
+.fileupload-container {
+    font: 1em sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid #ccc;
+    padding: 20px;
+    max-width: 400px;
+    margin: 100px auto; /* Adjust the margin based on your navbar height */
+    border-radius: 8px;
+}
+
+.file-input {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cv-label,
+.ot-label,
+.pb-label {
+    flex-direction: column;
+    display: flex;
+    margin-top: 15px;
+}

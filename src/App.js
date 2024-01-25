@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import './Document.css';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -9,6 +10,8 @@ import CompanyList from './components/CompanyList'; // Assuming you have this co
 import BusinessOpportunities from './components/BusinessOpportunities'; // Import the BusinessOpportunities component
 import Deals from './components/Deals.jsx';
 import CustomerList1 from './components/customers.jsx';
+import Document from './components/Document.jsx';
+import Calendar from './components/Calendar.jsx';
 
 
 
@@ -32,11 +35,20 @@ function App() {
     localStorage.removeItem('token');
   };
 
+
+  
+
   return (
     <Router>
       <div className="App">
         <Navbar onLogout={handleLogout} />
         <Switch>
+          <Route path="/document">
+            <Document />
+          </Route>
+          <Route path="/calender">
+            <Calendar />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
