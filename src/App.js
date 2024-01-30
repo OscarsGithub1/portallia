@@ -8,10 +8,10 @@ import Home from './components/Home';
 import PrivateRoute from './components/PrivateRoute';
 import CompanyList from './components/CompanyList'; // Assuming you have this component
 import BusinessOpportunities from './components/BusinessOpportunities'; // Import the BusinessOpportunities component
-import Deals from './components/Deals.jsx';
 import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Calendar from './components/Calendar.jsx';
+import Deals from './components/Deals.jsx';
 
 
 
@@ -58,8 +58,9 @@ function App() {
           <PrivateRoute path="/home" component={Home} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/companies" component={CompanyList} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
-          <PrivateRoute path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/Customers" component={CustomerList1  } isAuthenticated={isLoggedIn} />
+          <PrivateRoute path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
+
 
 
 

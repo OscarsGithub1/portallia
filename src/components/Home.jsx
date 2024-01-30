@@ -7,6 +7,7 @@ import CompanyList from './CompanyList';
 
 // Import your image with a relative path
 import backgroundImage from '../assets/images/dock-1846008_1920.jpg';
+import LogoutButton from './Logout';
 
 const backgroundImageStyle = {
   backgroundImage: `url(${backgroundImage})`, // Set the background image using the imported path
@@ -29,6 +30,7 @@ function Home() {
         <CustomerList1 />
         <OngoingTasks />
         <CompanyList />
+        <LogoutButton/>
         {/* Add any other code components as needed */}
       </div>
     </div>

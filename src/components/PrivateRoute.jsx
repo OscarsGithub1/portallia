@@ -1,8 +1,10 @@
+// PrivateRoute.jsx
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { isTokenValid } from './authUtils'; // Adjust the import path based on where you place the file
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isAuthenticated = localStorage.getItem('token') ? true : false;
+function PrivateRoute({ component: Component, ...rest }) {
+  const isAuthenticated = localStorage.getItem('token') && isTokenValid();
 
   return (
     <Route
@@ -16,6 +18,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       }
     />
   );
-};
+}
 
 export default PrivateRoute;

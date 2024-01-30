@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -17,13 +18,16 @@ const Login = ({ onLogin }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
       if (response.status === 200 && response.data.token) {
+        // Storing the token
         localStorage.setItem('token', response.data.token);
+        // Storing the current timestamp when the token is received
+        localStorage.setItem('tokenTimestamp', Date.now().toString());
+  
         onLogin(response.data.token);
         history.push('/home'); // Redirect to the home page or another page of your choice
       } else {
@@ -33,6 +37,7 @@ const Login = ({ onLogin }) => {
       // Handle errors (e.g., display an error message)
     }
   };
+  
 
   return (
     <div className="login-container">
