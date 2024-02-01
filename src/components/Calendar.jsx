@@ -3,6 +3,10 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Modal from 'react-modal';
+import OpportunityList from './OpportunityList'; // Kontrollera sökvägen här
+import BussOppCMS from './BussOppCMS';
+
+
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
@@ -49,8 +53,15 @@ const Calendar = () => {
     setIsModalOpen(false);
   };
 
+
   return (
     <div>
+        <OpportunityList/>
+        <h1>Klart på avtal</h1>
+
+        <BussOppCMS/>
+
+
       <h2></h2>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -83,7 +94,11 @@ const Calendar = () => {
         </form>
       </Modal>
     </div>
+            
+
   );
+
+
 };
 
 export default Calendar;

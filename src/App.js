@@ -12,6 +12,7 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Calendar from './components/Calendar.jsx';
 import Deals from './components/Deals.jsx';
+import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
 
 
 
@@ -42,6 +43,8 @@ function App() {
     <Router>
       <div className="App">
         <Navbar onLogout={handleLogout} />
+        <AuthTokenRefresher /> {/* This will start the token refresh process */}
+
         <Switch>
           <Route path="/document">
             <Document />
