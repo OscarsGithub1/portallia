@@ -10,7 +10,6 @@ import CompanyList from './components/CompanyList'; // Assuming you have this co
 import BusinessOpportunities from './components/BusinessOpportunities'; // Import the BusinessOpportunities component
 import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
-import Calendar from './components/Calendar.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
 
@@ -48,9 +47,6 @@ function App() {
         <Switch>
           <Route path="/document">
             <Document />
-          </Route>
-          <Route path="/calender">
-            <Calendar />
           </Route>
           <Route path="/register">
             <Register />

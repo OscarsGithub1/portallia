@@ -47,9 +47,6 @@ const Navbar = () => {
             <a className="nav-link" href="/document">
               Dokument
             </a>
-            <a className="nav-link" href="/calender">
-              Kalender
-            </a>
           </div>
 
          
