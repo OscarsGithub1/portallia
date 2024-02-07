@@ -1,43 +1,56 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import OngoingTasks from './Cards/OngoingTasks';
 import CustomerList1 from './customers';
 import UserWorkTaskStats from './UserWorkTaskStats';
 import CompanyList from './CompanyList';
-import OpportunityList from './OpportunityList'; // Kontrollera sökvägen här
-
-
-// Import your image with a relative path
-import backgroundImage from '../assets/images/dock-1846008_1920.jpg';
+import OpportunityList from './OpportunityList';
 import LogoutButton from './Logout';
 import BussOppCMS from './BussOppCMS';
+import backgroundImage from '../assets/images/dock-1846008_1920.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 
 const backgroundImageStyle = {
-  backgroundImage: `url(${backgroundImage})`, // Set the background image using the imported path
-  backgroundSize: 'cover', // Adjust background size to cover the container
-  backgroundRepeat: 'no-repeat', // Prevent background image from repeating
-  backgroundAttachment: 'fixed', // Fix the background in place
-  minHeight: '100vh', // Set a minimum height to cover the entire viewport
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundAttachment: 'fixed',
+  minHeight: '100vh',
 };
 
 function Home() {
+  const location = useLocation();
+  const personData = location.state?.personData;
+
   return (
-    <div>
-      <div style={backgroundImageStyle} className="bg-img">
-        {/* Your code components */}
-        <Navbar bg="light" expand="lg">
-          {/* Navbar content */}
-        </Navbar>
+    <div style={backgroundImageStyle} className="bg-img">
+      <Navbar bg="light" expand="lg">
+        {/* Navbar content */}
+      </Navbar>
+
+      {personData && (
+        <div className="container mt-4">
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">Person Details</h5>
+              <p className="card-text"><strong>ID:</strong> {personData.PersonId}</p>
+              <p className="card-text"><strong>Email:</strong> {personData.PersonEmail}</p>
+              <p className="card-text"><strong>Organisation ID:</strong> {personData.PersonOrganisationId}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="container">
         <UserWorkTaskStats />
         <h1 className="text-center mt-4">HomePage</h1>
         <CustomerList1 />
         <OngoingTasks />
         <CompanyList />
-        <OpportunityList/>
-
-        <LogoutButton/>
-        <BussOppCMS/>
-        {/* Add any other code components as needed */}
+        <OpportunityList />
+        <LogoutButton />
+        <BussOppCMS />
       </div>
     </div>
   );

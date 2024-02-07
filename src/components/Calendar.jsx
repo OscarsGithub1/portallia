@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import Modal from 'react-modal';
 import OpportunityList from './OpportunityList'; // Kontrollera sökvägen här
 import BussOppCMS from './BussOppCMS';
+import Profile from './Profile';
 
 
 
@@ -56,10 +57,11 @@ const Calendar = () => {
 
   return (
     <div>
-        <OpportunityList/>
+        
+        <Profile/>
         <h1>Klart på avtal</h1>
 
-        <BussOppCMS/>
+        
 
 
       <h2></h2>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +17,7 @@ const Login = ({ onLogin }) => {
       [e.target.name]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -25,6 +25,8 @@ const Login = ({ onLogin }) => {
       if (response.status === 200 && response.data.token) {
         // Storing the token
         localStorage.setItem('token', response.data.token);
+        // Storing the username (email)
+        localStorage.setItem('userEmail', formData.username); // Saving the username as userEmail
         // Storing the current timestamp when the token is received
         localStorage.setItem('tokenTimestamp', Date.now().toString());
   
@@ -37,7 +39,6 @@ const Login = ({ onLogin }) => {
       // Handle errors (e.g., display an error message)
     }
   };
-  
 
   return (
     <div className="login-container">
