@@ -1,19 +1,18 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Logo from '../assets/images/meone_payoff_grey.jpg';
+import Logo from '../assets/images/Meone_payoff_grey.png';
 import { HiOutlineUserCircle } from 'react-icons/hi';
-import { VscHistory } from 'react-icons/vsc';
-import { GrNotification } from 'react-icons/gr';
 import { MdOutlineSettings } from 'react-icons/md';
-import { IoAccessibilitySharp } from 'react-icons/io5';
+import { FiLogOut } from 'react-icons/fi'; // Importing the FiLogOut icon
+import { Dropdown } from 'react-bootstrap';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         {/* Logo */}
         <a className="navbar-brand" href="/">
-          <img src={Logo} alt="Logo" style={{ maxHeight: '50px' }} />
+          <img src={Logo} alt="Logo" style={{ maxHeight: '50px', marginLeft: '50px' }} />
         </a>
 
         {/* Navbar Toggler for Small Screens */}
@@ -31,56 +30,49 @@ const Navbar = () => {
 
         {/* Left-side Links */}
         <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="navbar-nav me-auto">
-            <a className="nav-link" href="/companies">
+          <div className="navbar-nav col-auto">
+            <a className="nav-link" href="/companies" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '50px' }}>
               Företag
             </a>
-            <a className="nav-link" href="#">
+            <a className="nav-link border-right" href="#" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
               Aktiviteter
             </a>
-            <a className="nav-link" href="/business-opportunities">
+            <a className="nav-link border-right" href="/business-opportunities" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
               Affärsmöjligheter
             </a>
-            <a className="nav-link" href="/deals">
+            <a className="nav-link border-right" href="/deals" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
               Avtal
             </a>
-            <a className="nav-link" href="/document">
+            <a className="nav-link" href="/document" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
               Dokument
             </a>
           </div>
 
-         
-
           {/* Right-side Links */}
           <div className="navbar-nav ms-auto">
 
-                {/* Search Bar */}
-                <form className="d-flex ml-3">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success ml-2" type="submit">
-              Search
-            </button>
-          </form>
-          <a className="nav-link" href="#" style={{ marginRight: '8px' }}>
-              <HiOutlineUserCircle className="fs-3" />
-            </a>
-            <a className="nav-link" href="#" style={{ marginRight: '8px' }}>
-              <VscHistory className="fs-3" />
-            </a>
-            <a className="nav-link" href="#" style={{ marginRight: '8px' }}>
-              <GrNotification className="fs-3" />
-            </a>
-            <a className="nav-link" href="#" style={{ marginRight: '8px' }}>
-              <MdOutlineSettings className="fs-3" />
-            </a>
-            <a className="nav-link" href="#" style={{ marginRight: '8px' }}>
-              <IoAccessibilitySharp className="fs-3" />
-            </a>
+            {/* User Dropdown Menu */}
+            <Dropdown>
+              <Dropdown.Toggle variant="link" id="dropdown-basic">
+                <HiOutlineUserCircle className="fs-2" style={{ color: 'white' }} />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/profile">
+                  <HiOutlineUserCircle className="me-2" />
+                  Visa profil
+                </Dropdown.Item>
+                <Dropdown.Item href="#">
+                  <MdOutlineSettings className="me-2" />
+                  Inställningar
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#">
+                  <FiLogOut className="me-2" /> {/* Replaced with FiLogOut icon */}
+                  Logga ut
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
       </div>

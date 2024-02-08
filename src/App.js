@@ -12,6 +12,7 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
+import Profile from './components/Profile.jsx';
 
 
 
@@ -35,7 +36,13 @@ function App() {
     localStorage.removeItem('token');
   };
 
-
+  // Assuming you have some user state
+  const [user, setUser] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    // Other user information
+  });
   
 
   return (
@@ -50,6 +57,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/profile">
+            <Profile user={user} />
           </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} />
