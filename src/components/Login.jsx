@@ -25,6 +25,7 @@ const Login = ({ onLogin }) => {
       const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
       if (response.status === 200 && response.data.token) {
         localStorage.setItem('token', response.data.token);
+        // Storing the current timestamp when the token is received
         localStorage.setItem('tokenTimestamp', Date.now().toString());
   
         onLogin(response.data.token);
@@ -36,12 +37,7 @@ const Login = ({ onLogin }) => {
       // Handle errors
     }
   };
-
-  const handleCreateAccount = () => {
-    // Redirect to create account page or perform any action you need
-    // For example:
-    history.push('/register');
-  };
+  
 
   return (
     <div className="login-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
