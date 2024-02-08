@@ -37,6 +37,11 @@ const Login = ({ onLogin }) => {
       // Handle errors
     }
   };
+  const handleCreateAccount = () => {
+    // Redirect to create account page or perform any action you need
+    // For example:
+    history.push('/register');
+  };
   
 
   return (
