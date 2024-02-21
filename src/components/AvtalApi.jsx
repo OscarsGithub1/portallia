@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Card, ListGroup, Button } from 'react-bootstrap';
-import OpportunitiesByResponsible from './OpportunitiesByResponsiblePerson'; // Make sure the path is correct
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Button, Typography, CircularProgress, Dialog, DialogTitle, DialogContent } from '@mui/material';
 
 const OpportunitiesByPersonAndPipeline = () => {
   const [opportunities, setOpportunities] = useState([]);
-  const [selectedOpportunityNumber, setSelectedOpportunityNumber] = useState(null);
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const token = localStorage.getItem('token');
@@ -15,21 +15,21 @@ const OpportunitiesByPersonAndPipeline = () => {
     const fetchOpportunities = async () => {
       let page = 1;
       let hasMorePages = true;
-
+  
       if (!personId || !token) {
         setError('Required information not found. Please ensure you are logged in and try again.');
         setLoading(false);
         return;
       }
-
+  
       while (hasMorePages) {
         try {
           const response = await axios.get(`https://api.webcrm.com/Opportunities/ByPipelineLevel/13`, {
             params: { Page: page, Size: 50, include: 'SecurityInfo' },
-            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'text/plain' },
+            headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' },
           });
-
-          if (response.data.length > 0) {
+  
+          if (response.data && response.data.length > 0) {
             setOpportunities(prev => [...prev, ...response.data.filter(opportunity => opportunity.OpportunityPersonId.toString() === personId)]);
             page++;
           } else {
@@ -43,43 +43,49 @@ const OpportunitiesByPersonAndPipeline = () => {
       }
       setLoading(false);
     };
-
+  
     fetchOpportunities();
   }, [personId, token]);
-
-  const handleSelectOpportunity = (opportunityNumber) => {
-    setSelectedOpportunityNumber(opportunityNumber);
+  const openDetailsDialog = (opportunity) => {
+    setSelectedOpportunity(opportunity);
+    setIsDialogOpen(true);
   };
 
-  const renderOpportunityDetails = (opportunity) => {
-    return Object.entries(opportunity).map(([key, value]) => (
-      <ListGroup.Item key={key}>
-        <strong>{key}:</strong> {typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString()}
-      </ListGroup.Item>
-    ));
-  };
+  const renderOpportunityDetailsDialog = () => (
+    <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} maxWidth="md" fullWidth>
+      <DialogTitle>Opportunity Details</DialogTitle>
+      <DialogContent>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Field</TableCell>
+              <TableCell>Value</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {selectedOpportunity && Object.entries(selectedOpportunity).map(([key, value]) => (
+              <TableRow key={key}>
+                <TableCell>{key}</TableCell>
+                <TableCell>{typeof value === 'object' ? JSON.stringify(value, null, 2) : value.toString()}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DialogContent>
+    </Dialog>
+  );
 
-  if (loading) return <div>Loading opportunities...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <CircularProgress />;
+  if (error) return <Typography color="error">{error}</Typography>;
 
   return (
-    <Container className="mt-3">
-      <h3>Opportunities at Pipeline Level 13 for Person ID: {personId}</h3>
-      {opportunities.length > 0 ? (
-        opportunities.map((opportunity, index) => (
-          <Card className="mb-3" key={index}>
-            <Card.Header>Opportunity ID: {opportunity.OpportunityId}</Card.Header>
-            <ListGroup variant="flush">
-              {renderOpportunityDetails(opportunity)}
-              <Button onClick={() => handleSelectOpportunity(opportunity.OpportunityNumber)}>Match This Opportunity</Button>
-            </ListGroup>
-          </Card>
-        ))
-      ) : (
-        <p>No matching opportunities found for this person at pipeline level 13.</p>
-      )}
-      {selectedOpportunityNumber && <OpportunitiesByResponsible matchOpportunityNumber={selectedOpportunityNumber} />}
-    </Container>
+    <TableContainer component={Paper} className="mt-3">
+      {/* Table structure for opportunities */}
+      {opportunities.map((opportunity) => (
+        <Button key={opportunity.OpportunityId} onClick={() => openDetailsDialog(opportunity)}>View Details</Button>
+      ))}
+      {renderOpportunityDetailsDialog()}
+    </TableContainer>
   );
 };
 
