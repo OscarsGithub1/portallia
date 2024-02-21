@@ -12,6 +12,8 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
+import AvtalApi from './components/AvtalApi.jsx';
+import SeeSpecifikOpportunity from './components/SeeSpecifikOpportunity.jsx';
 
 
 
@@ -47,6 +49,12 @@ function App() {
         <Switch>
           <Route path="/document">
             <Document />
+          </Route>
+          <Route path="/AvtalApi">
+            <AvtalApi/>
+          </Route>
+          <Route path="/SeeSpecifikOpportunity">
+            <SeeSpecifikOpportunity/>
           </Route>
           <Route path="/register">
             <Register />

@@ -10,6 +10,7 @@ import LogoutButton from './Logout';
 import BussOppCMS from './BussOppCMS';
 import backgroundImage from '../assets/images/dock-1846008_1920.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
+import FindPersonId from './FindPersonId';
 
 const backgroundImageStyle = {
   backgroundImage: `url(${backgroundImage})`,
@@ -51,6 +52,7 @@ function Home() {
         <OpportunityList />
         <LogoutButton />
         <BussOppCMS />
+        <FindPersonId/>
       </div>
     </div>
   );

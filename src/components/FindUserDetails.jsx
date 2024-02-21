@@ -8,50 +8,41 @@ const FindUserDetails = ({ onUserFound }) => {
 
     useEffect(() => {
         const fetchUsersAndFindMatch = async () => {
-            const userEmail = localStorage.getItem('userEmail'); // Retrieve the user's email from local storage
-            const token = localStorage.getItem('token'); // Retrieve the token from local storage
+            const userEmail = localStorage.getItem('userEmail');
+            const token = localStorage.getItem('token');
 
             if (!userEmail || !token) {
-                setError('User email not found in local storage or authentication token not found.');
+                setError('User email or token not found in local storage.');
                 setLoading(false);
                 return;
             }
 
             try {
-                const response = await axios.get('https://api.webcrm.com/Persons', {
-                    params: {
-                        Page: 1,
-                        Size: 50,
-                        include: 'SecurityInfo'
-                    },
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Accept': 'text/plain',
-                    }
+                const response = await axios.get(`https://api.webcrm.com/Persons/Search`, {
+                    params: { input: userEmail, Page: 1, Size: 50, include: ['SecurityInfo'] },
+                    headers: { 'Authorization': `Bearer ${token}`, 'accept': 'text/plain' },
                 });
 
-                const users = response.data; // Assuming the API returns an array of person objects
-                const matchingUser = users.find(user => user.PersonEmail === userEmail); 
+                const person = response.data.find(p => p.PersonEmail === userEmail);
+                if (person) {
+                    setPersonDetails(person);
+                    localStorage.setItem('PersonId', person.PersonId.toString());
+                    localStorage.setItem('OrganisationId', person.PersonOrganisationId.toString());
 
-                if (matchingUser) {
-                    setPersonDetails(matchingUser); // Store the matching user object in state
-                    localStorage.setItem('OrganisationId', matchingUser.PersonOrganisationId.toString()); // Save OrganisationId to local storage
-                    localStorage.setItem('PersonId', matchingUser.PersonId.toString()); // Save PersonId to local storage
-
-                    if (onUserFound) onUserFound(matchingUser); // Trigger callback if provided
+                    if (onUserFound) onUserFound(person);
                 } else {
                     setError('No matching user found.');
                 }
             } catch (fetchError) {
-                console.error('Error fetching users:', fetchError);
-                setError('Failed to fetch users.');
-            } finally {
-                setLoading(false);
+                console.error('Error fetching user details:', fetchError);
+                setError('Failed to fetch user details.');
             }
+
+            setLoading(false);
         };
 
         fetchUsersAndFindMatch();
-    }, [onUserFound]); // Dependency on onUserFound callback
+    }, [onUserFound]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -60,9 +51,9 @@ const FindUserDetails = ({ onUserFound }) => {
     return (
         <div>
             <h3>User Details</h3>
-            <p><strong>ID:</strong> {personDetails?.PersonId}</p>
-            <p><strong>Email:</strong> {personDetails?.PersonEmail}</p>
-            <p><strong>Organisation ID:</strong> {personDetails?.PersonOrganisationId}</p>
+            <p><strong>ID:</strong> {personDetails.PersonId}</p>
+            <p><strong>Email:</strong> {personDetails.PersonEmail}</p>
+            <p><strong>Organisation ID:</strong> {personDetails.PersonOrganisationId}</p>
             {/* Add more fields as necessary */}
         </div>
     );
