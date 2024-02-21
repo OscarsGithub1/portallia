@@ -12,12 +12,8 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
-<<<<<<< HEAD
 import AvtalApi from './components/AvtalApi.jsx';
 import SeeSpecifikOpportunity from './components/SeeSpecifikOpportunity.jsx';
-=======
-import Profile from './components/Profile.jsx';
->>>>>>> 26426b59bb1ba78bbad4584f0dade301a2f1a4b8
 
 
 
@@ -42,12 +38,7 @@ function App() {
   };
 
   // Assuming you have some user state
-  const [user, setUser] = useState({
-    name: '',
-    lastName: '',
-    email: '',
-    // Other user information
-  });
+
   
 
   return (
@@ -69,9 +60,7 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/profile">
-            <Profile user={user} />
-          </Route>
+       
           <Route path="/login">
             <Login onLogin={handleLogin} />
           </Route>
