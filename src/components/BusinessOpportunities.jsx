@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateWorkTaskOpportunity from './CreateWorkTaskOpporunity'; // Make sure the path is correct
 import backgroundImage from '../assets/images/shutterstock_451288924-1_grey.jpg'; // Adjust the path as necessary
+import UserOrganisations from './UserOrganisations';
 
 
 
@@ -74,6 +75,8 @@ function BusinessOpportunities() {
                 <p>No Work Task Opportunities available.</p>
             )}
     <CreateWorkTaskOpportunity/>
+   <UserOrganisations/>
+
 
         </div>
     </div>

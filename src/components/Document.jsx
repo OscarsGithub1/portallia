@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Card, CardContent, Typography, CardActionArea, Box } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import AddOpportunity from './AddOpportunity';
+import UserOrganisations from './UserOrganisations';
+import OpportunityForm from './OpportunityForm';
 
 const OpportunitiesByOrganisation = () => {
   const [opportunities, setOpportunities] = useState([]);
@@ -59,7 +61,9 @@ const OpportunitiesByOrganisation = () => {
   if (error) return <Box sx={{ color: 'error.main' }}>Error: {error}</Box>;
 
   return (
+    
     <Box>
+      <UserOrganisations/>
       <Typography variant="h6">Opportunities for Person ID: {personId}</Typography>
       {opportunities.length > 0 ? (
         opportunities.map((opportunity, index) => (
@@ -76,6 +80,7 @@ const OpportunitiesByOrganisation = () => {
         <Typography>No matching opportunities found for this person at pipeline level 1.</Typography>
       )}
        <AddOpportunity />
+      <OpportunityForm/>
     </Box>
   );
  

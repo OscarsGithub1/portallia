@@ -11,6 +11,7 @@ import BussOppCMS from './BussOppCMS';
 import backgroundImage from '../assets/images/dock-1846008_1920.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
 import FindPersonId from './FindPersonId';
+import OpportunityForm from './OpportunityForm';
 
 const backgroundImageStyle = {
   backgroundImage: `url(${backgroundImage})`,
@@ -53,6 +54,7 @@ function Home() {
         <LogoutButton />
         <BussOppCMS />
         <FindPersonId/>
+        <OpportunityForm/>
       </div>
     </div>
   );
