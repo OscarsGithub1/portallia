@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Assuming you are using React Router
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, TextField } from '@mui/material';
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
-import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
-import PinOutlinedIcon from '@mui/icons-material/PinOutlined';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
-import Button from '@mui/material/Button'; // Import Button component from Material-UI
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import SearchIcon from '@mui/icons-material/Search';
-import Tooltip from '@mui/material/Tooltip';
+import CreateWorkTaskOpportunity from './CreateWorkTaskOpporunity'; // Make sure the path is correct
+import backgroundImage from '../assets/images/shutterstock_451288924-1_grey.jpg'; // Adjust the path as necessary
+
+
 
 function BusinessOpportunities() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -182,124 +169,47 @@ function BusinessOpportunities() {
     
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-          <div style={{ width: '90%', position: 'relative' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <AssignmentOutlinedIcon fontSize="large" style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                <h3 style={{ margin: '0' }}>Affärsmöjligheter</h3>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}> {/* This div contains both the search field and the "Skapa Förfrågan" button */}
-                <Tooltip title="Sökfält: Företagsnamn, Beskrivning, Nummer" placement="bottom">
-                  <TextField
-                    placeholder="Sök..."
-                    variant="outlined"
-                    size="small"
-                    style={{ backgroundColor: 'white', marginRight: '25px', width: '180px' }} // Adjusted marginRight
-                    InputProps={{
-                      startAdornment: (
-                        <SearchIcon style={{ color: 'black', marginRight: '5px' }} />
-                      ),
-                    }}
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                  />
-                </Tooltip>
-                <Button
-                  component={Link}
-                  to="/addopportunity"
-                  variant="contained"
-                  color="primary"
-                  style={{ backgroundColor: 'white', color: 'black', fontWeight: 'bold', borderRadius: '6px' }}
-                  startIcon={<PostAddOutlinedIcon />}
-                >
-                Skapa Förfrågan
-                </Button>
-              </div>
-            </div>
-            <TableContainer component={Paper} elevation={10} sx={{ borderRadius: '8px', height: '588px', maxHeight: '650px', overflowY: 'auto', marginTop: '15px' }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                  <TableCell sx={{ px: '30px', width: '5%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <NumbersOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Nummer
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '10px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <WorkOutlineOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Företagsnamn
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '10px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <DescriptionOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Beskrivning
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '50px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <EventOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Datum
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '10px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <NumbersOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Totalvärde
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '10px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <PinOutlinedIcon fontSize="medium" sx={{ marginRight: '5px' }} />
-                      Pipelinenivå
-                    </div>
-                  </TableCell>
-                  <TableCell sx={{ px: '10px', width: '10%', fontWeight: 'bold' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <AccountBoxOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
-                      Ansvarig
-                    </div>
-                  </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredOpportunities.map((opportunity) => (
-                    <TableRow key={opportunity.number} component={Link} to={`/businessdetailed/${opportunity.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} >
-                      <TableCell sx={{ px: '35px', width: '8%' }}>{opportunity.number}</TableCell>
-                      <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.company}</TableCell>
-                      <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.description}</TableCell>
-                      <TableCell sx={{ px: '50px', width: '8%' }}>{opportunity.orderDate}</TableCell>
-                      <TableCell sx={{ px: '30px', width: '8%' }}>{opportunity.totalvärde}</TableCell>
-                      <TableCell sx={{ px: '30px', width: '8%' }}>{opportunity.pipelinelevel}</TableCell>
-                      <TableCell sx={{ px: '15px', width: '8%' }}>{opportunity.responsible}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <div style={{ 
-              backgroundColor: 'white', 
-              borderRadius: '8px', 
-              display: 'flex', 
-              justifyContent: 'center', 
-              boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.6)' 
-            }}>
-              <Pagination
-                count={pageCount}
-                page={currentPage}
-                onChange={handleChangePage}
-                renderItem={(item) => (
-                  <PaginationItem
-                    slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-                    {...item}
-                  />
-                )}
-              />
-            </div>
-          </div>
+      
+        <div style={backgroundStyle}> {/* Use backgroundStyle here */}
+
+            <div className="container mt-4">
+            <h2 className="mb-3">Your Work Task Opportunities</h2>
+            
+            {workTaskOpportunities.length ? (
+              
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Is Closed</th>
+                            <th scope="col">Pipeline Level</th>
+                            <th scope="col">Sales Responsible</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {workTaskOpportunities.map(opportunity => (
+                            <tr key={opportunity.id}>
+                                <th scope="row">{opportunity.id}</th>
+                                <td>{opportunity.company}</td>
+                                <td>{opportunity.description}</td>
+                                <td>{new Date(opportunity.opportunityDate).toLocaleDateString()}</td>
+                                <td>{opportunity.opportunityValue}</td>
+                                <td>{opportunity.isClosed ? 'Yes' : 'No'}</td>
+                                <td>{opportunity.pipelineLevel}</td>
+                                <td>{opportunity.salesResponsible}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No Work Task Opportunities available.</p>
+            )}
+    <CreateWorkTaskOpportunity/>
+
         </div>
       );
 }    

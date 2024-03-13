@@ -11,7 +11,6 @@ const Register = () => {
     password: '',
   });
   const [error, setError] = useState('');
-  const [personData, setPersonData] = useState(null); // State to store the person's data
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -21,35 +20,43 @@ const Register = () => {
     });
   };
 
-  const fetchPersons = async () => {
-    const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+  const checkEmailExists = async (email) => {
+    let page = 1;
+    const size = 50; // Adjust based on API's allowed maximum
+    let found = false;
+
+    const token = localStorage.getItem('token'); // Ensure the token is available
     if (!token) {
       console.error('No token found');
-      return [];
+      return false;
     }
 
-    try {
-      const response = await axios.get('https://api.webcrm.com/Persons?Page=1&Size=50&include=SecurityInfo', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain',
-        },
-      });
-      return response.data; // Assuming the response data is the list of persons
-    } catch (error) {
-      console.error('Error fetching persons:', error);
-      return [];
-    }
-  };
+    while (!found) {
+      try {
+        const response = await axios.get(`https://api.webcrm.com/Persons?Page=${page}&Size=${size}&include=SecurityInfo`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'accept': 'text/plain',
+          },
+        });
 
-  const checkEmailExists = async (email) => {
-    const persons = await fetchPersons();
-    const person = persons.find(p => p.PersonEmail === email);
-    if (person) {
-      setPersonData(person); // Update the state with the found person's data
-      return true;
+        const persons = response.data; // Assuming the response data is the list of persons
+        const person = persons.find(p => p.PersonEmail === email);
+        if (person) {
+          found = true;
+          // Optionally store the person data in the state or elsewhere if needed
+        } else if (persons.length < size) {
+          break; // Exit the loop if the last page has fewer items than the maximum size, indicating the end of data
+        }
+
+        page++; // Increment the page number for the next iteration
+      } catch (error) {
+        console.error('Error fetching persons:', error);
+        break; // Exit the loop in case of an error
+      }
     }
-    return false; // Return false if no person is found
+
+    return found;
   };
 
   const handleLoginAccount = () => {
@@ -68,7 +75,7 @@ const Register = () => {
     }
 
     try {
-      const endpoint = 'https://localhost:7042/api/Auth/register'; // Replace with your actual registration endpoint
+      const endpoint = 'https://localhost:7042/api/Auth/register';
       await axios.post(endpoint, {
         username: formData.username,
         password: formData.password,

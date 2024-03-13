@@ -11,6 +11,8 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
+import AvtalApi from './components/AvtalApi.jsx';
+import SeeSpecifikOpportunity from './components/SeeSpecifikOpportunity.jsx';
 import ProfileInformation from './components/ProfileInformation.jsx';
 import DealsDetailed from './components/DealsDetailed.jsx';
 import AddOpportunity from './components/AddOpportunity.jsx'; 
@@ -45,8 +47,6 @@ function App() {
     email: '',
     // Other user information
   });
-
-  
   
 
   return (
@@ -68,11 +68,17 @@ function App() {
           <Route path="/document">
             <Document />
           </Route>
+          <Route path="/AvtalApi">
+            <AvtalApi/>
+          </Route>
+          <Route path="/SeeSpecifikOpportunity">
+            <SeeSpecifikOpportunity/>
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
           <Route path="/profile">
-            <ProfileInformation user={user} />
+            <Profile user={user} />
           </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} />

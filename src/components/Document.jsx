@@ -1,80 +1,92 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Card, CardContent, Typography, CardActionArea, Box } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import AddOpportunity from './AddOpportunity';
+import UserOrganisations from './UserOrganisations';
+import OpportunityForm from './OpportunityForm';
+import OpportunitiesListOne from './OpportunitiesListOne';
 
-const Document = () => {
-    useEffect(() => {
-        const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
-        const inputFiles = document.querySelectorAll(".dropzone-area input[type='file']");
-        const inputElement = inputFiles[0];
-        const dropZoneElement = inputElement.closest(".dropzone-area");
+const OpportunitiesByOrganisation = () => {
+  const [opportunities, setOpportunities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const personId = localStorage.getItem('PersonId');
+  const token = localStorage.getItem('token');
+  const history = useHistory();
 
-        const updateDropzoneFileList = (dropzoneElement, file) => {
-            let dropzoneFileMessage = dropzoneElement.querySelector(".message");
-            dropzoneFileMessage.innerHTML = `
-                ${file.name}, ${file.size} bytes
-            `;
-        };
+  useEffect(() => {
+    const fetchOpportunities = async () => {
+      if (!personId || !token) {
+        setError('Required information not found. Please ensure you are logged in and try again.');
+        setLoading(false);
+        return;
+      }
+  
+      let page = 1;
+      let allFetched = false;
+  
+      while (!allFetched) {
+        try {
+          const response = await axios.get(`https://api.webcrm.com/Opportunities/ByPipelineLevel/1`, {
+            params: { Page: page, Size: 50, include: 'SecurityInfo' },
+            headers: { 'Authorization': `Bearer ${token}` },
+          });
+  
+          const filteredOpportunities = response.data.filter(opportunity => opportunity.OpportunityPersonId.toString() === personId);
+  
+          if (filteredOpportunities.length > 0) {
+            setOpportunities(prev => [...prev, ...filteredOpportunities]);
+            page += 1;
+          } else {
+            allFetched = true;
+          }
+        } catch (error) {
+          console.error('Error fetching opportunities:', error);
+          setError('Failed to fetch opportunities.');
+          allFetched = true;
+        }
+      }
+      setLoading(false);
+    };
+  
+    fetchOpportunities();
+  }, [personId, token]);
+  
+  const handleOpportunityClick = (opportunityId) => {
+    // Replace '/SeeSpecifikOpportunity' with your actual route
+    history.push(`/SeeSpecifikOpportunity/${opportunityId}`);
+  };
 
-        inputElement.addEventListener("change", (e) => {
-            if (inputElement.files.length) {
-                updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
-            }
-        });
+  if (loading) return <Box>Loading opportunities...</Box>;
+  if (error) return <Box sx={{ color: 'error.main' }}>Error: {error}</Box>;
 
-        dropZoneElement.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            dropZoneElement.classList.add("dropzone--over");
-        });
+  return (
+    
+    <Box>
+      <UserOrganisations/>
+      <Typography variant="h6">Opportunities for Person ID: {personId}</Typography>
+      {opportunities.length > 0 ? (
+        opportunities.map((opportunity, index) => (
+          <Card key={index} sx={{ mb: 2, ':hover': { boxShadow: 6 } }} onClick={() => handleOpportunityClick(opportunity.OpportunityId)}>
+            <CardActionArea>
+              <CardContent>
+                <Typography variant="body1">Opportunity ID: {opportunity.OpportunityId}</Typography>
+                <Typography variant="body2">Description: {opportunity.OpportunityDescription}</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))
+      ) : (
+        <Typography>No matching opportunities found for this person at pipeline level 1.</Typography>
+      )}
+       <AddOpportunity />
+      <OpportunityForm/>
+      <OpportunitiesListOne/>
+    </Box>
+  );
+ 
 
-        ["dragleave", "dragend"].forEach((type) => {
-            dropZoneElement.addEventListener(type, (e) => {
-                dropZoneElement.classList.remove("dropzone--over");
-            });
-        });
-
-        dropZoneElement.addEventListener("drop", (e) => {
-            e.preventDefault();
-
-            if (e.dataTransfer.files.length) {
-                inputElement.files = e.dataTransfer.files;
-                updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
-            }
-
-            dropZoneElement.classList.remove("dropzone--over");
-        });
-
-        dropzoneBox.addEventListener("reset", (e) => {
-            let dropzoneFileMessage = dropZoneElement.querySelector(".message");
-            dropzoneFileMessage.innerHTML = `Inga filer valda`;
-        });
-
-        dropzoneBox.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const myFiled = document.getElementById("upload-file");
-            console.log(myFiled.files[0]);
-        });
-    }, []); // empty dependency array ensures that this effect runs only once after the component mounts
-
-    return (
-        <form className="dropzone-box">
-            <h2>Ladda upp och bifoga filer</h2>
-            <div className="dropzone-area">
-                <div className="file-upload-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                    </svg>
-                </div>
-                <p>Klicka för att ladda upp eller dra och släpp</p>
-                <input type="file" required id="upload-file" name="uploaded-file" />
-                <p className="message">Inga filer valda</p>
-            </div>
-            <div className="dropzone-actions">
-                <button type="reset">Rensa</button>
-                <button id="submit-button" type="submit">Spara</button>
-            </div>
-        </form>
-    );
 };
 
-export default Document;
+export default OpportunitiesByOrganisation;
