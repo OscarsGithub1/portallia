@@ -1,82 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logo from '../assets/images/Meone_payoff_grey.png';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import { MdOutlineSettings } from 'react-icons/md';
-import { FiLogOut } from 'react-icons/fi'; // Importing the FiLogOut icon
+import { FiLogOut } from 'react-icons/fi';
 import { Dropdown } from 'react-bootstrap';
+import Avatar from '@mui/material/Avatar';
+import Paper from '@mui/material/Paper';
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        {/* Logo */}
-        <a className="navbar-brand" href="/">
-          <img src={Logo} alt="Logo" style={{ maxHeight: '50px', marginLeft: '50px' }} />
-        </a>
+    <Paper elevation={5}>
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#FFFFFF'}}>
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">
+            <img src={Logo} alt="Logo" style={{ maxHeight: '40px', marginLeft: '50px' }} />
+          </a>
 
-        {/* Navbar Toggler for Small Screens */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
-        {/* Left-side Links */}
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <div className="navbar-nav col-auto">
-            <a className="nav-link" href="/companies" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '50px' }}>
-              Företag
-            </a>
-            <a className="nav-link border-right" href="#" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
-              Aktiviteter
-            </a>
-            <a className="nav-link border-right" href="/business-opportunities" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
-              Affärsmöjligheter
-            </a>
-            <a className="nav-link border-right" href="/deals" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
-              Avtal
-            </a>
-            <a className="nav-link" href="/document" style={{ color: 'white', fontSize: '1.2rem', marginLeft: '10px' }}>
-              Dokument
-            </a>
-          </div>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <div className="navbar-nav col-auto">
+              <a className="nav-link border-right" href="/business-opportunities" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
+                Affärsmöjligheter
+              </a>
+              <a className="nav-link border-right" href="/deals" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
+                Avtal
+              </a>
+            </div>
 
-          {/* Right-side Links */}
-          <div className="navbar-nav ms-auto">
-
-            {/* User Dropdown Menu */}
-            <Dropdown>
-              <Dropdown.Toggle variant="link" id="dropdown-basic">
-                <HiOutlineUserCircle className="fs-2" style={{ color: 'white' }} />
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item href="/profile">
-                  <HiOutlineUserCircle className="me-2" />
-                  Visa profil
-                </Dropdown.Item>
-                <Dropdown.Item href="#">
-                  <MdOutlineSettings className="me-2" />
-                  Inställningar
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#">
-                  <FiLogOut className="me-2" /> {/* Replaced with FiLogOut icon */}
-                  Logga ut
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <div style={{ marginRight: '20px' }} className="navbar-nav ms-auto">
+              <Dropdown>
+                <Dropdown.Toggle onClick={toggleDropdown} className="dropdown-toggle">
+                  <Avatar src="/broken-image.jpg" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu show={isDropdownOpen}>
+                  <Dropdown.Item href="/profile">
+                    <HiOutlineUserCircle className="me-2" />
+                    Min profil
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="#">
+                    <FiLogOut className="me-2" />
+                    Logga ut
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+        <style>
+          {`
+            .dropdown-toggle {
+              background-color: transparent !important;
+              border: none !important;
+            }
+
+            .dropdown-toggle::after {
+              display: none !important;
+            }
+
+            .nav-link:hover {
+              color: black !important;
+            }
+            
+            .vertical-line {
+              border-left: 1px solid #ddd;
+              height: 40px;
+              margin: 0 10px;
+            }
+          `}
+        </style>
+      </nav>
+    </Paper>
   );
 };
 

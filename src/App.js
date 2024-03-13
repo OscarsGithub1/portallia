@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import './Document.css';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -12,7 +11,10 @@ import CustomerList1 from './components/customers.jsx';
 import Document from './components/Document.jsx';
 import Deals from './components/Deals.jsx';
 import AuthTokenRefresher from './components/AuthTokenRefresher'; // Adjust the path as necessary
-import Profile from './components/Profile.jsx';
+import ProfileInformation from './components/ProfileInformation.jsx';
+import DealsDetailed from './components/DealsDetailed.jsx';
+import AddOpportunity from './components/AddOpportunity.jsx'; 
+import BusinessDetailed from './components/BusinessDetailed.jsx';
 
 
 
@@ -43,6 +45,8 @@ function App() {
     email: '',
     // Other user information
   });
+
+  
   
 
   return (
@@ -52,6 +56,15 @@ function App() {
         <AuthTokenRefresher /> {/* This will start the token refresh process */}
 
         <Switch>
+          <Route path="/addopportunity">
+            <AddOpportunity/>
+          </Route>
+          <Route path="/dealsdetailed">
+            <DealsDetailed />
+          </Route>
+          <Route path="/businessdetailed">
+            <BusinessDetailed />
+          </Route>
           <Route path="/document">
             <Document />
           </Route>
@@ -59,7 +72,7 @@ function App() {
             <Register />
           </Route>
           <Route path="/profile">
-            <Profile user={user} />
+            <ProfileInformation user={user} />
           </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} />

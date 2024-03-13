@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Logo from '../assets/images/Meone_payoff_grey.png';
 
 const Register = () => {
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     username: '', // Assuming username is the email
     password: '',
   });
@@ -49,6 +52,12 @@ const Register = () => {
     return false; // Return false if no person is found
   };
 
+  const handleLoginAccount = () => {
+    // Redirect to create account page or perform any action you need
+    // For example:
+    history.push('/login');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -63,9 +72,11 @@ const Register = () => {
       await axios.post(endpoint, {
         username: formData.username,
         password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
       });
 
-      setFormData({ username: '', password: '' }); // Clear form data
+      setFormData({ firstName: '', lastName: '', username: '', password: '' }); // Clear form data
 
       // Redirect to home and pass personData as state
       history.push({
@@ -79,14 +90,42 @@ const Register = () => {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center vh-100">
-      <div className="card p-4 shadow">
-        <h2 className="text-center mb-4">Register</h2>
+    <div className="register-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+      <div className="register-container" style={{ backgroundColor: '#ffffff', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)', borderRadius: '28px', padding: '50px', width: '450px', height: '530px' }} >
+        <div className="login-logo" href="" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img src={Logo} alt="Logo" style={{ textDecoration: 'none', maxHeight: '60px', marginBottom: '20px' }} />
+        </div>
         {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">Username (Email)</label>
-            <input
+          <div style={{ marginTop: '10px' }} className="form-group row">
+            <div className="col">
+              <label htmlFor="firstName">Förnamn</label>
+              <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}}
+                type="text"
+                className="form-control"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="lastName">Efternamn</label>
+              <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}}
+                type="text"
+                className="form-control"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label style={{ marginTop: '10px' }} htmlFor="username">Email</label>
+            <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}}
               type="email"
               className="form-control"
               id="username"
@@ -96,9 +135,9 @@ const Register = () => {
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input
+          <div className="form-group">
+            <label style={{ marginTop: '10px' }} htmlFor="password">Lösenord</label>
+            <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}}
               type="password"
               className="form-control"
               id="password"
@@ -108,11 +147,12 @@ const Register = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Register</button>
+          <button style={{ width: '100%', marginTop: '20px' }} type="submit" className="btn btn-dark">Registera</button>
         </form>
-        <p className="mt-3 text-center">
-          Already have an account? <a href="/login">Login</a>
-        </p>
+        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <p>Har du redan ett konto?</p>
+          <button className="btn btn-link" onClick={handleLoginAccount}>Logga in</button>
+        </div>
       </div>
     </div>
   );

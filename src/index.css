@@ -1,9 +1,11 @@
 body {
-  font-family: "Open Sans", sans-serif;
-  background-color: var(--background);
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f8fa !important; /* Gray background color */
   height: 100vh;
-  padding: 1rem;
-  background: url("http://codingstella.com/wp-content/uploads/2024/01/download-scaled.jpeg")
-    center/cover no-repeat;
+  background: none; /* Remove background image */
 }
 
+.LinkStyle {
+  display: block;
+  width: 100%;
+}

@@ -39,7 +39,7 @@ const UserWorkStats = () => {
 
   return (
     <div className="container mt-5">
-      <div className="card text-white bg-dark mb-3">
+      <div className="card text-dark bg-light mb-2">
         <div className="card-header">Prestationsmätare</div>
         <div className="card-body">
           <h5 className="card-title">Summary</h5>

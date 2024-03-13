@@ -34,8 +34,9 @@ const Login = ({ onLogin }) => {
         // Handle login failure
       }
     } catch (error) {
-      // Handle errors
+      
     }
+
   };
   const handleCreateAccount = () => {
     // Redirect to create account page or perform any action you need
@@ -46,38 +47,40 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="login-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-      <div className="login-container" style={{ backgroundColor: '#fff', border: '2px solid #ccc', borderRadius: '10px', padding: '50px', width: '380px', height: '450px' }}>
+      <div className="login-container" style={{ backgroundColor: '#ffffff', borderRadius: '18px', padding: '50px', width: '400px', height: '450px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)' }}>
         <div className="login-logo" href="" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img src={Logo} alt="Logo" style={{ textDecoration: 'none', maxHeight: '60px', marginBottom: '20px' }} />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="form-group" >
+          <div style={{ marginTop: '10px' }} className="form-group" >
             <label htmlFor="username">Email</label>
-            <input style={{ border: '3px solid #ccc'}}
+            <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)' }}
               type="text"
               className="form-control"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Lösenord</label>
-            <input style={{ border: '3px solid #ccc'}}
+            <label style={{ marginTop: '10px' }} htmlFor="password">Lösenord</label>
+            <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)' }}
               type="password"
               className="form-control"
               id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
+              required
             />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '20px' }}>
+          <button type="submit" className="btn btn-dark" style={{ width: '100%', marginTop: '20px' }}>
             Logga in
           </button>
         </form>
-        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <div style={{ marginTop: '20px', textAlign: 'center', fontStretch: 'rem'}}>
           <p>Har du inget konto?</p>
           <button className="btn btn-link" onClick={handleCreateAccount}>Skapa konto</button>
         </div>

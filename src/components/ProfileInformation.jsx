@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 
-const Profile = ({ user }) => {
+const ProfileInformation = ({ user }) => {
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
@@ -51,24 +52,25 @@ const Profile = ({ user }) => {
     setIsChangingPassword(false);
   };
 
+  // Function to handle profile picture change
   return (
-    <form style={{ border: '3px solid #ccc', padding: '30px', borderRadius: '5px', background: 'white', margin: 'auto', width: '30%', marginTop: '100px'}}>
-      <h2 style={{ textAlign: 'center' }}>Min profil</h2>
+    <form style={{ backgroundColor: '#ffffff', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)' , padding: '30px', borderRadius: '28px', margin: 'auto', width: '25%', marginTop: '130px'}}>
+      
       <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ flex: 1, marginLeft: '15px', marginRight: '30px', marginTop: '10px'}}>
           <label htmlFor="name">Förnamn</label>
-          <input style={{ border: '3px solid #ccc'}} className="form-control" type="text" id="name" value={name} onChange={handleNameChange} disabled={!isEditing} />
+          <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}} className="form-control" type="text" id="name" value={name} required onChange={handleNameChange} disabled={!isEditing} />
         </div>
         <div style={{ flex: 1, marginRight: '15px', marginTop: '10px' }}>
           <label htmlFor="lastName">Efternamn</label>
-          <input style={{ border: '3px solid #ccc'}} className="form-control" type="text" id="lastName" value={lastName} onChange={handleLastNameChange} disabled={!isEditing} />
+          <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}} className="form-control" type="text" id="lastName" value={lastName} onChange={handleLastNameChange} disabled={!isEditing} />
         </div>
       </div>
       <div  style={{ marginLeft: '15px', marginTop: '10px'}}>
         <label htmlFor="email">Email</label>
       </div>
       <div style={{ marginRight: '30px'}}>  
-        <input className="form-control" type="email" id="email" value={email} onChange={handleEmailChange} disabled={!isEditing} style={{ border: '3px solid #ccc', marginLeft: '15px'}} />
+        <input className="form-control" type="email" id="email" value={email} onChange={handleEmailChange} disabled={!isEditing} style={{ border: '3px solid rgba(0, 0, 0, 0.5)', marginLeft: '15px'}} />
       </div>
       {isChangingPassword ? (
         <form onSubmit={handlePasswordFormSubmit}>
@@ -76,36 +78,36 @@ const Profile = ({ user }) => {
             <label htmlFor="oldPassword">Nuvarande lösenord</label>
           </div>
           <div style={{ marginRight: '30px'}}>
-            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid #ccc'}} type="password" id="oldPassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
+            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid rgba(0, 0, 0, 0.5)'}} type="password" id="oldPassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
           </div>
           <div style={{ marginLeft: '15px', marginTop: '10px' }}>
             <label htmlFor="newPassword">Nytt lösenord</label>
           </div>
           <div style={{ marginRight: '30px'}} >  
-            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid #ccc'}} type="password" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid rgba(0, 0, 0, 0.5)'}} type="password" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
           </div>
           <div style={{ marginTop: '10px', marginLeft: '15px' }}>
             <label htmlFor="confirmPassword">Bekräfta lösenord</label>
           </div>
           <div style={{ marginRight: '30px'}}>  
-            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid #ccc'}} type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+            <input className="form-control" style={{ marginLeft: '15px', border: '3px solid rgba(0, 0, 0, 0.5)'}} type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           </div>
           <div style={{ marginLeft: '15px', marginRight: '15px', display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
-            <button type="submit" className="btn btn-primary">Spara</button>
-            <button type="button" className="btn btn-primary" onClick={() => setIsChangingPassword(false)}>Avbryt</button>
+            <Button variant="contained" color="primary" style={{  border: '1px solid' , borderRadius: '6px'}} onClick={() => setIsChangingPassword(false)}>Avbryt</Button>
+            <Button variant="contained" color="primary" type='submit' style={{  border: '1px solid' , borderRadius: '6px'}}>Spara</Button>
           </div>  
         </form>
       ) : (
         <>
           {isEditing ? (
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px', marginLeft: '15px', marginRight: '15px' }}>
-              <button type="button" className="btn btn-primary" onClick={handleClearClick}>Rensa alla fält</button>
-              <button type="button" className="btn btn-primary" onClick={handleSaveClick}>Spara ändringar</button>
+              <Button variant="contained" color="primary" style={{  border: '1px solid' , borderRadius: '6px'}} onClick={handleClearClick}>Rensa</Button>
+              <Button variant="contained" color="primary" style={{  border: '1px solid' , borderRadius: '6px'}} onClick={handleSaveClick}>Spara</Button>
             </div>
           ) : (
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px', marginLeft: '15px', marginRight: '15px' }}>
-              <button type="button" className="btn btn-primary" onClick={handleEditClick}>Ändra din profil</button>
-              <button type="button" className="btn btn-primary" onClick={handleChangePasswordClick}>Byt lösenord</button>
+              <Button variant="contained" color="primary" style={{  border: '1px solid' , borderRadius: '6px'}} onClick={handleEditClick}>Ändra din profil</Button>
+              <Button variant="contained" color="primary" style={{  border: '1px solid' , borderRadius: '6px'}} onClick={handleChangePasswordClick}>Byt lösenord</Button>
             </div>
           )}
         </>
@@ -114,4 +116,4 @@ const Profile = ({ user }) => {
   );
 };
 
-export default Profile;
+export default ProfileInformation;

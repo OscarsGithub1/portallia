@@ -1,68 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 const Document = () => {
-  const [cvFile, setCvFile] = useState(null);
-  const [pbFile, setPbFile] = useState(null);
-  const [otFile, setOtFile] = useState(null);
+    useEffect(() => {
+        const dropzoneBox = document.getElementsByClassName("dropzone-box")[0];
+        const inputFiles = document.querySelectorAll(".dropzone-area input[type='file']");
+        const inputElement = inputFiles[0];
+        const dropZoneElement = inputElement.closest(".dropzone-area");
 
-  const handleCvFileChange = (event) => {
-    setCvFile(event.target.files[0]);
-  };
+        const updateDropzoneFileList = (dropzoneElement, file) => {
+            let dropzoneFileMessage = dropzoneElement.querySelector(".message");
+            dropzoneFileMessage.innerHTML = `
+                ${file.name}, ${file.size} bytes
+            `;
+        };
 
-  const handlePbFileChange = (event) => {
-    setPbFile(event.target.files[0]);
-  };
+        inputElement.addEventListener("change", (e) => {
+            if (inputElement.files.length) {
+                updateDropzoneFileList(dropZoneElement, inputElement.files[0]);
+            }
+        });
 
-  const handleOtFileChange = (event) => {
-    setOtFile(event.target.files[0]);
-  };
+        dropZoneElement.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropZoneElement.classList.add("dropzone--over");
+        });
 
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append('cvFile', cvFile);
-    formData.append('pbFile', pbFile);
-    formData.append('otFile', otFile);
+        ["dragleave", "dragend"].forEach((type) => {
+            dropZoneElement.addEventListener(type, (e) => {
+                dropZoneElement.classList.remove("dropzone--over");
+            });
+        });
 
-    try {
-      const response = await fetch('YOUR_BACKEND_UPLOAD_ENDPOINT', {
-        method: 'POST',
-        body: formData,
-      });
+        dropZoneElement.addEventListener("drop", (e) => {
+            e.preventDefault();
 
-      // Handle the response as needed
-      console.log('File uploaded successfully', response);
-    } catch (error) {
-      console.error('Error uploading files', error);
-    }
-  };
+            if (e.dataTransfer.files.length) {
+                inputElement.files = e.dataTransfer.files;
+                updateDropzoneFileList(dropZoneElement, e.dataTransfer.files[0]);
+            }
 
-  return (
-    <div className='fileupload-container'>
-      <h4>Ladda upp dokument</h4>
-      <div className='file-input'>
-        <label className='cv-label'>
-          <h5 className='cv-file'>
-            CV:
-          </h5>
-          <input className='cv' type="file" onChange={handleCvFileChange} />
-        </label>
-        <label className='pb-label'>
-          <h5 className='pb-file'>
-            Personligt Brev:
-          </h5>
-          <input className='pb' type="file" onChange={handlePbFileChange} />
-        </label>
-        <label className='ot-label'>
-          <h5 className='ot-file'>
-            Övriga Filer:
-          </h5>
-          <input className='ot' type="file" onChange={handleOtFileChange} />
-        </label>
-      </div>
-      <br />
-      <button onClick={handleUpload}>Ladda upp</button>
-    </div>
-  );
+            dropZoneElement.classList.remove("dropzone--over");
+        });
+
+        dropzoneBox.addEventListener("reset", (e) => {
+            let dropzoneFileMessage = dropZoneElement.querySelector(".message");
+            dropzoneFileMessage.innerHTML = `Inga filer valda`;
+        });
+
+        dropzoneBox.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const myFiled = document.getElementById("upload-file");
+            console.log(myFiled.files[0]);
+        });
+    }, []); // empty dependency array ensures that this effect runs only once after the component mounts
+
+    return (
+        <form className="dropzone-box">
+            <h2>Ladda upp och bifoga filer</h2>
+            <div className="dropzone-area">
+                <div className="file-upload-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                        <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                    </svg>
+                </div>
+                <p>Klicka för att ladda upp eller dra och släpp</p>
+                <input type="file" required id="upload-file" name="uploaded-file" />
+                <p className="message">Inga filer valda</p>
+            </div>
+            <div className="dropzone-actions">
+                <button type="reset">Rensa</button>
+                <button id="submit-button" type="submit">Spara</button>
+            </div>
+        </form>
+    );
 };
 
 export default Document;
