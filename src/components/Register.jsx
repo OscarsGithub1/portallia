@@ -84,13 +84,7 @@ const Register = () => {
       });
 
       setFormData({ firstName: '', lastName: '', username: '', password: '' }); // Clear form data
-      
-      const personData = {};
-      // Redirect to home and pass personData as state
-      history.push({
-        pathname: '/home',
-        state: { personData: personData }
-      });
+      history.push('/home'); // Redirect to the home page or another page of your choice
     } catch (error) {
       console.error('Registration error:', error.response?.data || error.message);
       setError(error.response?.data || 'An error occurred during registration. Please try again.');
