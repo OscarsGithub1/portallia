@@ -43,6 +43,9 @@ const Navbar = () => {
               <a className="nav-link border-right" href="/deals" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
                 Avtal
               </a>
+              <a className="nav-link border-right" href="/document" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
+                TestförOscar
+              </a>
             </div>
 
             <div style={{ marginRight: '20px' }} className="navbar-nav ms-auto">
