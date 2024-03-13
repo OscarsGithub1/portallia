@@ -42,7 +42,7 @@ function App() {
 
   // Assuming you have some user state
   const [user, setUser] = useState({
-    name: '',
+    firstName: '',
     lastName: '',
     email: '',
     // Other user information
@@ -76,6 +76,9 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/profile">
+            <ProfileInformation user={user} />
           </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} />

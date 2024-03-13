@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 
 const ProfileInformation = ({ user }) => {
-  const [name, setName] = useState(user.name);
+  const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
   const [isEditing, setIsEditing] = useState(false);
@@ -12,7 +12,7 @@ const ProfileInformation = ({ user }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    setFirstName(event.target.value);
   };
 
   const handleLastNameChange = (event) => {
@@ -28,7 +28,7 @@ const ProfileInformation = ({ user }) => {
   };
 
   const handleClearClick = () => {
-    setName(user.name);
+    setFirstName(user.firstName);
     setLastName(user.lastName);
     setEmail(user.email);
   };
@@ -59,7 +59,7 @@ const ProfileInformation = ({ user }) => {
       <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ flex: 1, marginLeft: '15px', marginRight: '30px', marginTop: '10px'}}>
           <label htmlFor="name">Förnamn</label>
-          <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}} className="form-control" type="text" id="name" value={name} required onChange={handleNameChange} disabled={!isEditing} />
+          <input style={{ border: '3px solid rgba(0, 0, 0, 0.5)'}} className="form-control" type="text" id="name" value={firstName} required onChange={handleNameChange} disabled={!isEditing} />
         </div>
         <div style={{ flex: 1, marginRight: '15px', marginTop: '10px' }}>
           <label htmlFor="lastName">Efternamn</label>
