@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import OpportunitiesListOne from './OpportunitiesListOne';
+  
 
 // Import your image with a relative path
 import backgroundImage from '../assets/images/dollarphotoclub_61705309.jpg';
@@ -64,7 +66,9 @@ const CompanyList = () => {
           </tbody>
         </table>
       </div>
+      <OpportunitiesListOne/>
     </div>
+ 
   );
 };
 

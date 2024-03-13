@@ -45,6 +45,8 @@ function Home() {
       )}
 
       <div className="container">
+      <FindPersonId/>
+
         <UserWorkTaskStats />
         <h1 className="text-center mt-4">HomePage</h1>
         <CustomerList1 />
@@ -53,7 +55,6 @@ function Home() {
         <OpportunityList />
         <LogoutButton />
         <BussOppCMS />
-        <FindPersonId/>
         <OpportunityForm/>
       </div>
     </div>

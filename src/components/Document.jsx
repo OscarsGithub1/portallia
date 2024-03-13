@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import AddOpportunity from './AddOpportunity';
 import UserOrganisations from './UserOrganisations';
 import OpportunityForm from './OpportunityForm';
+import OpportunitiesListOne from './OpportunitiesListOne';
 
 const OpportunitiesByOrganisation = () => {
   const [opportunities, setOpportunities] = useState([]);
@@ -81,6 +82,7 @@ const OpportunitiesByOrganisation = () => {
       )}
        <AddOpportunity />
       <OpportunityForm/>
+      <OpportunitiesListOne/>
     </Box>
   );
  

@@ -23,19 +23,41 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://localhost:7042/api/Auth/login', formData);
-      if (response.status === 200 && response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        // Storing the current timestamp when the token is received
+      const loginResponse = await axios.post('https://localhost:7042/api/Auth/login', formData);
+      if (loginResponse.status === 200 && loginResponse.data.token) {
+        const { token } = loginResponse.data; // Destructure the token from the response for easier access
+        
+        localStorage.setItem('token', token);
         localStorage.setItem('tokenTimestamp', Date.now().toString());
+        localStorage.setItem('userEmail', formData.username); // Storing the userEmail right after login
   
-        onLogin(response.data.token);
-        history.push('/home');
+        // Use the token to authorize the request for fetching the PersonId
+        try {
+          const personResponse = await axios.get('https://api.webcrm.com/Persons/Search', {
+            params: { input: formData.username, Page: 1, Size: 50, include: ['SecurityInfo'] },
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'accept': 'text/plain', // Ensure the accept header is set as specified
+            },
+          });
+  
+          const person = personResponse.data.find(p => p.PersonEmail === formData.username);
+          if (person) {
+            localStorage.setItem('PersonId', person.PersonId.toString());
+          } else {
+            console.error('No matching person found for the given email.');
+          }
+        } catch (error) {
+          console.error('Error fetching person ID:', error);
+        }
+  
+        onLogin(token);
+        history.push('/home'); // Navigate to home after all operations are successful
       } else {
-        // Handle login failure
+        console.error('Login failed with status:', loginResponse.status);
       }
     } catch (error) {
-      // Handle errors
+      console.error('Login error:', error);
     }
   };
   const handleCreateAccount = () => {
