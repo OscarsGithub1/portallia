@@ -84,7 +84,8 @@ const Register = () => {
       });
 
       setFormData({ firstName: '', lastName: '', username: '', password: '' }); // Clear form data
-
+      
+      const personData = {};
       // Redirect to home and pass personData as state
       history.push({
         pathname: '/home',

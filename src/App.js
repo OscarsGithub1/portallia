@@ -77,9 +77,6 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/profile">
-            <Profile user={user} />
-          </Route>
           <Route path="/login">
             <Login onLogin={handleLogin} />
           </Route>
