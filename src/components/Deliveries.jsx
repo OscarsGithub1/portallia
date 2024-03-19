@@ -5,7 +5,7 @@ const Deliveries = () => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [selectedDeliveryDetails, setSelectedDeliveryDetails] = useState(null); // State for selected delivery details
+  const [selectedDeliveryDetails, setSelectedDeliveryDetails] = useState(null);
 
   useEffect(() => {
     const fetchDeliveries = async () => {
@@ -44,7 +44,7 @@ const Deliveries = () => {
   }, []);
 
   const handleMatchClick = async (deliveryId) => {
-    const token = localStorage.getItem('token'); // Ensure token is retrieved correctly
+    const token = localStorage.getItem('token');
 
     try {
       const response = await axios.get(`https://api.webcrm.com/Deliveries/${deliveryId}`, {
@@ -54,12 +54,29 @@ const Deliveries = () => {
         },
       });
 
-      setSelectedDeliveryDetails(response.data); // Store the fetched delivery details
+      setSelectedDeliveryDetails(response.data);
     } catch (fetchError) {
       console.error('Error fetching delivery details:', fetchError);
       setError('Failed to fetch delivery details.');
     }
   };
+
+  const fields = [
+    'DeliveryOpportunityDescription',
+    'DeliverySearch2',
+    'DeliveryOpportunityCustom1',
+    'DeliveryOpportunityCustom2',
+    'DeliveryOpportunityCustom4',
+    'DeliveryOpportunityCustom6',
+    'DeliveryOpportunityCustom7',
+    'DeliveryOpportunityCustom8',
+    'DeliveryOpportunityCustom9',
+    'DeliveryOpportunityCustom11',
+    'DeliveryOpportunityCustom14',
+    'DeliveryOpportunityCustom15',
+    'DeliveryPlus1',
+    'DeliveryPlus8'
+  ];
 
   return (
     <div>
@@ -81,11 +98,13 @@ const Deliveries = () => {
       {selectedDeliveryDetails && (
         <div className="delivery-detail">
           <h3>Delivery Details</h3>
-          {/* Render the details of the selected delivery. Adjust based on your data structure */}
-          {Object.entries(selectedDeliveryDetails).map(([key, value]) => (
-            <p key={key}>{`${key}: ${value}`}</p>
+          {fields.map(field => (
+            <div key={field} className="mb-3">
+              <label className="form-label">{field}</label>
+              <input type="text" readOnly className="form-control" value={selectedDeliveryDetails[field] || 'N/A'} />
+            </div>
           ))}
-          <button onClick={() => setSelectedDeliveryDetails(null)}>Close</button>
+          <button onClick={() => setSelectedDeliveryDetails(null)} className="btn btn-secondary">Close</button>
         </div>
       )}
     </div>
