@@ -3,11 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is import
 import Deals from './Deals.jsx';
 import BusinessOpportunities from './BusinessOpportunities';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
+import FindPersonId from './FindPersonId.jsx'
 
 
 function Home() {
   return (
+   
     <div className="container-fluid mt-5">
+       <FindPersonId/>
       <div className="d-flex align-items-center mb-5">
         <GradeOutlinedIcon fontSize="large" style={{ marginRight: '8px' }} />
         <h2>meOne Konsultförmedling AB</h2>

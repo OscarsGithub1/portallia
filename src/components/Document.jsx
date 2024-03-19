@@ -6,6 +6,7 @@ import AddOpportunity from './AddOpportunity';
 import UserOrganisations from './UserOrganisations';
 import OpportunityForm from './OpportunityForm';
 import OpportunitiesListOne from './OpportunitiesListOne';
+import Deliveries from './Deliveries';
 
 const OpportunitiesByOrganisation = () => {
   const [opportunities, setOpportunities] = useState([]);
@@ -62,8 +63,8 @@ const OpportunitiesByOrganisation = () => {
   if (error) return <Box sx={{ color: 'error.main' }}>Error: {error}</Box>;
 
   return (
-    
     <Box>
+      <Deliveries/>
       <UserOrganisations/>
       <Typography variant="h6">Opportunities for Person ID: {personId}</Typography>
       {opportunities.length > 0 ? (
