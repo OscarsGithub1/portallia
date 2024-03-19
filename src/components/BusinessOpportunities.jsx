@@ -213,7 +213,7 @@ function BusinessOpportunities() {
                   style={{ backgroundColor: 'white', color: 'black', fontWeight: 'bold', borderRadius: '6px' }}
                   startIcon={<PostAddOutlinedIcon />}
                 >
-                Skapa Förfrågan
+                Skapa
                 </Button>
               </div>
             </div>
