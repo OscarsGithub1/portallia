@@ -87,17 +87,17 @@ function App() {
           <Route path="/login">
             <Login onLogin={handleLogin} />
           </Route>
-          <Route path="/home" component={Home} isAuthenticated={isLoggedIn} />
+          <PrivateRoute path="/home" component={Home} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/companies" component={CompanyList} isAuthenticated={isLoggedIn} />
-          <Route path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
+          <PrivateRoute path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/Customers" component={CustomerList1  } isAuthenticated={isLoggedIn} />
-          <Route path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
+          <PrivateRoute path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
 
 
 
 
 
-          <Redirect from="/" exact to={isLoggedIn ? "/home" : "/"} />
+          <Redirect from="/" exact to={isLoggedIn ? "/home" : "/login"} />
         </Switch>
       </div>
     </Router>
