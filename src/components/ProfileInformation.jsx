@@ -54,7 +54,7 @@ const ProfileInformation = ({ user }) => {
 
   // Function to handle profile picture change
   return (
-    <form style={{ backgroundColor: '#ffffff', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)' , padding: '30px', borderRadius: '28px', margin: 'auto', width: '25%', marginTop: '130px'}}>
+    <form style={{ backgroundColor: '#ffffff', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)' , padding: '30px', borderRadius: '18px', margin: 'auto', width: '25%', marginTop: '130px'}}>
       
       <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ flex: 1, marginLeft: '15px', marginRight: '30px', marginTop: '10px'}}>
