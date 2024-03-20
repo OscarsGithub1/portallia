@@ -187,7 +187,7 @@ function BusinessOpportunities() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <AssignmentOutlinedIcon fontSize="large" style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                <h3 style={{ margin: '0' }}>Affärsmöjligheter</h3>
+                <h3 style={{ margin: '0' }}>Förfrågningar</h3>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}> {/* This div contains both the search field and the "Skapa Förfrågan" button */}
                 <Tooltip title="Sökfält: Företagsnamn, Beskrivning, Nummer" placement="bottom">
@@ -213,7 +213,7 @@ function BusinessOpportunities() {
                   style={{ backgroundColor: 'white', color: 'black', fontWeight: 'bold', borderRadius: '6px' }}
                   startIcon={<PostAddOutlinedIcon />}
                 >
-                Skapa Förfrågan
+                Skapa förfrågan
                 </Button>
               </div>
             </div>

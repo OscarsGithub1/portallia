@@ -17,6 +17,7 @@ import ProfileInformation from './components/ProfileInformation.jsx';
 import DealsDetailed from './components/DealsDetailed.jsx';
 import AddOpportunity from './components/AddOpportunity.jsx'; 
 import BusinessDetailed from './components/BusinessDetailed.jsx';
+import Deliveries from './components/Deliveries.jsx';
 
 
 
@@ -56,6 +57,9 @@ function App() {
         <AuthTokenRefresher /> {/* This will start the token refresh process */}
 
         <Switch>
+          <Route path="/deliveries">
+            <Deliveries />
+          </Route>
           <Route path="/addopportunity">
             <AddOpportunity/>
           </Route>
@@ -83,17 +87,17 @@ function App() {
           <Route path="/login">
             <Login onLogin={handleLogin} />
           </Route>
-          <PrivateRoute path="/home" component={Home} isAuthenticated={isLoggedIn} />
+          <Route path="/home" component={Home} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/companies" component={CompanyList} isAuthenticated={isLoggedIn} />
-          <PrivateRoute path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
+          <Route path="/business-opportunities" component={BusinessOpportunities} isAuthenticated={isLoggedIn} />
           <PrivateRoute path="/Customers" component={CustomerList1  } isAuthenticated={isLoggedIn} />
-          <PrivateRoute path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
+          <Route path="/deals" component={Deals} isAuthenticated={isLoggedIn} />
 
 
 
 
 
-          <Redirect from="/" exact to={isLoggedIn ? "/home" : "/login"} />
+          <Redirect from="/" exact to={isLoggedIn ? "/home" : "/"} />
         </Switch>
       </div>
     </Router>
