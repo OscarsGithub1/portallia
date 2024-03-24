@@ -267,7 +267,7 @@ function BusinessOpportunities() {
                 </TableHead>
                 <TableBody>
                   {filteredOpportunities.map((opportunity) => (
-                    <TableRow key={opportunity.number} component={Link} to={`/businessdetailed/${opportunity.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} >
+                    <TableRow key={opportunity.number} component={Link} to={`/SeeSpecifikOpportunity/${opportunity.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} >
                       <TableCell sx={{ px: '35px', width: '8%' }}>{opportunity.number}</TableCell>
                       <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.company}</TableCell>
                       <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.description}</TableCell>

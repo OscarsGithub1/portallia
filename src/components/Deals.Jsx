@@ -224,7 +224,7 @@ const Deals = () => {
             </TableHead>
             <TableBody>
               {filteredTasks.map((task, index) => (
-                <TableRow key={index} component={Link} to={`/dealsdetailed/${task.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}>
+                <TableRow key={index} component={Link} to={`/deliveries/${task.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}>
                   <TableCell sx={{ px: '20px', width: '5%', position: 'relative' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <div style={{ position: 'absolute', left: 0, top: 0, backgroundColor: getStatusColor(task.status), width: '10px', height: '100%' }}></div>
