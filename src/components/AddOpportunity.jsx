@@ -80,12 +80,12 @@ const OpportunityForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-
+  
     if (!token) {
       console.error("No token found in localStorage.");
       return; // Optionally, show an error message to the user.
     }
-
+  
     try {
       const response = await axios.post('https://api.webcrm.com/Opportunities', formData, {
         headers: {
@@ -94,13 +94,75 @@ const OpportunityForm = () => {
         },
       });
       console.log('Opportunity created:', response.data);
-      // Handle the response, e.g., setting a success message or clearing the form
+      
+      // Clear the form fields by resetting formData state to its initial state
+      setFormData({
+        OpportunityAssignedTo: 0,
+        OpportunityAssignedTo2: 0,
+        OpportunityComment: '',
+        OpportunityCreatedAt: '',
+        OpportunityCreatedBy: '',
+        OpportunityCurrencyName: '',
+        OpportunityCurrencySymbol: '',
+        OpportunityDescription: '',
+        OpportunityDiscount: 0,
+        OpportunityErpId: '',
+        OpportunityErpReadOnly: false,
+        OpportunityErpStatus: '',
+        OpportunityErpSyncDateTime: '',
+        OpportunityGmRevenue1: 0,
+        OpportunityOrganisationId: 0,
+        OpportunityPercent: 0,
+        OpportunityPersonId: 0,
+        OpportunityPersonId2: 0,
+        OpportunityAddress: '',
+        OpportunityPostCode: '',
+        OpportunityCity: '',
+        OpportunityState: '',
+        OpportunityCountryValue: '',
+        OpportunityCountry: {
+          Name: '',
+          CodeISO: '',
+          CodeUN: null,
+        },
+        OpportunityProduct: '',
+        OpportunityProductId: 0,
+        OpportunityQuotationLanguageId: 0,
+        OpportunityRevenue1: 0,
+        OpportunitySearch1: '',
+        OpportunitySearch2: '',
+        OpportunitySpentTime: '',
+        OpportunityUpdatedAt: '',
+        OpportunityUpdatedBy: '',
+        OpportunityUserGroupId: 0,
+        OpportunityWinPercent: 0,
+        OpportunityWinPercent2: 0,
+        OpportunityWinYesNo: false,
+        OpportunityMemo: '',
+        OpportunityCustom1: '',
+        OpportunityCustom2: '',
+        OpportunityCustom3: '',
+        OpportunityCustom4: '',
+        OpportunityCustom6: '',
+        OpportunityCustom7: '',
+        OpportunityCustom8: '',
+        OpportunityLevel: 0,
+        OpportunityPipelineType: 0,
+        OpportunityLevelText: '',
+        OpportunityLostDate: '',
+        OpportunityNextFollowUp: '',
+        OpportunityNumber: '',
+        OpportunityOrderDate: '',
+        OpportunityOrganisationId: 0,
+        OpportunityId: 0,
+      });
+  
+      // Optionally, navigate to a different page or show a success message
     } catch (error) {
       console.error('Error creating opportunity:', error.response);
       // Handle the error, e.g., setting an error message
     }
   };
-
   const handleCancel = () => {
     // Navigate back to the previous page
     history.goBack();
@@ -122,6 +184,7 @@ const OpportunityForm = () => {
               <h3 style={{ margin: '0' }}>Skapa en förfrågan</h3>
             </div>
         <Form onSubmit={handleSubmit}>
+          {/* 
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -145,9 +208,12 @@ const OpportunityForm = () => {
               value={formData.OpportunityAssignedTo2}
               onChange={handleInputChange}
             />
+            
           </Form.Group>
+          
         </div>
       </div>
+      */}
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -226,6 +292,7 @@ const OpportunityForm = () => {
           </Form.Group>
         </div>
       </div>
+      {/*}
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -252,6 +319,7 @@ const OpportunityForm = () => {
             </Form.Group>
         </div>
       </div>
+      
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -277,11 +345,11 @@ const OpportunityForm = () => {
                 <option selected>Select Status</option>
                 <option value="NotReadyForSynchronization">Not Ready For Synchronization</option>
                 <option value="ReadyForSynchronization">Ready For Synchronization</option>
-                {/* Add other status options as needed */}
               </select>
           </Form.Group>
         </div>
       </div>
+    
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -308,6 +376,7 @@ const OpportunityForm = () => {
           </Form.Group>
         </div>
       </div>
+      */}
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -321,6 +390,7 @@ const OpportunityForm = () => {
             />
           </Form.Group>
         </div>
+        {/*}
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
             <Form.Label htmlFor="OpportunityPercent">Opportunity Percent:</Form.Label>
@@ -334,6 +404,7 @@ const OpportunityForm = () => {
           </Form.Group>
         </div>
       </div>
+      */}
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -360,6 +431,7 @@ const OpportunityForm = () => {
           </Form.Group>
           </div>
       </div>
+      {/*}
       <div className="row">
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
@@ -514,6 +586,7 @@ const OpportunityForm = () => {
             />
           </Form.Group>
         </div>
+        */}
         <div className="col-md">
           <Form.Group style={{ marginBottom: '10px' }}>
             <Form.Label htmlFor="OpportunitySearch1">Search Keyword 1:</Form.Label>
@@ -583,6 +656,7 @@ const OpportunityForm = () => {
         </Form.Group>
       </div>
     </div>
+    {/*}
     <div className="row">
       <div className="col-md">
         <Form.Group style={{ marginBottom: '10px' }}>
@@ -654,8 +728,11 @@ const OpportunityForm = () => {
             placeholder="Additional notes or memo"
           />
         </Form.Group>
+        
       </div>
+      */}
       <div className="col-md">
+        <div>
         <Form.Group style={{ marginBottom: '10px' }}>
           <Form.Label htmlFor="OpportunityCustom1">Custom Field 1:</Form.Label>
           <Form.Control
@@ -861,6 +938,7 @@ const OpportunityForm = () => {
         </Form.Group>
       </div>
     </div>
+    {/*}
       <div className="row">
         <Form.Group style={{ marginBottom: '10px' }}>
           <Form.Label htmlFor="OpportunityAssignedTo">Assigned To:</Form.Label>
@@ -873,7 +951,7 @@ const OpportunityForm = () => {
           />
         </Form.Group>
       </div>
-
+*/}
   {/* Add more form fields as needed */}
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '35px' }}>

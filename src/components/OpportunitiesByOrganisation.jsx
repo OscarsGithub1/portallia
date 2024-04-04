@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import { useHistory } from 'react-router-dom';
 
 const OpportunitiesByOrganisation = () => {
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const personId = localStorage.getItem('PersonId'); // Retrieve PersonId from local storage
-  const token = localStorage.getItem('token'); // Retrieve the token from local storage
-  const history = useHistory(); // Initialize useHistory hook
+  const personId = localStorage.getItem('PersonId');
+  const token = localStorage.getItem('token');
+  const history = useHistory();
 
   useEffect(() => {
     if (!personId || !token) {
@@ -38,37 +38,41 @@ const OpportunitiesByOrganisation = () => {
         } catch (error) {
           console.error('Error fetching opportunities:', error);
           setError('Failed to fetch opportunities.');
-          allFetched = true; // Stop loop on error
+          allFetched = true;
         }
       }
       setLoading(false);
     };
 
     fetchOpportunities();
-  }, [personId, token]); // Add personId and token as dependencies to useEffect
+  }, [personId, token]);
 
   const handleOpportunityClick = (opportunityId) => {
-    localStorage.setItem('SelectedOpportunityId', opportunityId); // Store the clicked OpportunityId in local storage
-    history.push('/SeeSpecifikOpportunity'); // Redirect to SeeSpecifikOpportunity page
+    localStorage.setItem('SelectedOpportunityId', opportunityId);
+    history.push('/SeeSpecifikOpportunity');
   };
 
-  if (loading) return <div>Loading opportunities...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="text-center mt-5">Loading opportunities...</div>;
+  if (error) return <div className="alert alert-danger" role="alert">Error: {error}</div>;
 
   return (
-    <div>
-      <h3>Opportunities for Person ID: {personId}</h3>
+    <div className="container mt-3">
+      <h3 className="text-center">Opportunities for Person ID: {personId}</h3>
       {opportunities.length > 0 ? (
-        <ul>
+        <ul className="list-group">
           {opportunities.map((opportunity, index) => (
-            <li key={index} style={{ cursor: 'pointer' }} onClick={() => handleOpportunityClick(opportunity.OpportunityId)}>
-              <p>Opportunity ID: {opportunity.OpportunityId}</p>
-              <p>Description: {opportunity.OpportunityDescription}</p>
+            <li key={index} className="list-group-item list-group-item-action" onClick={() => handleOpportunityClick(opportunity.OpportunityId)}>
+              <p><strong>Opportunity ID:</strong> {opportunity.OpportunityId}</p>
+              <p><strong>Description:</strong> {opportunity.OpportunityDescription}</p>
+              <p><strong>Created By:</strong> {opportunity.OpportunityCreatedBy}</p>
+              <p><strong>Opportunity Plus1:</strong> {opportunity.OpportunityPlus1}</p>
+              <p><strong>Order Date:</strong> {opportunity.OpportunityOrderDate}</p>
+              <p><strong>Opportunity Number:</strong> {opportunity.OpportunityNumber}</p>
             </li>
-          ))}
+          ))} 
         </ul>
       ) : (
-        <p>No matching opportunities found for this person at pipeline level 1.</p>
+        <p className="text-center">No matching opportunities found for this person at pipeline level 1.</p>
       )}
     </div>
   );

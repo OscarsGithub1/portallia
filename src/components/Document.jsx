@@ -7,6 +7,7 @@ import UserOrganisations from './UserOrganisations';
 import OpportunityForm from './OpportunityForm';
 import OpportunitiesListOne from './OpportunitiesListOne';
 import Deliveries from './Deliveries';
+import OpportunityList from './OpportunityList';
 
 const OpportunitiesByOrganisation = () => {
   const [opportunities, setOpportunities] = useState([]);
@@ -84,6 +85,8 @@ const OpportunitiesByOrganisation = () => {
        <AddOpportunity />
       <OpportunityForm/>
       <OpportunitiesListOne/>
+      
+      
     </Box>
   );
  

@@ -4,6 +4,8 @@ import Deals from './Deals.jsx';
 import BusinessOpportunities from './BusinessOpportunities';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import FindPersonId from './FindPersonId.jsx'
+import SeeSpecifikOpportunity from './SeeSpecifikOpportunity.jsx';
+import OpportunitiesByOrganisation from './OpportunitiesByOrganisation.jsx';
 
 
 function Home() {
@@ -11,6 +13,8 @@ function Home() {
    
     <div className="container-fluid mt-5">
        <FindPersonId/>
+       <OpportunitiesByOrganisation/>
+      
       <div className="d-flex align-items-center mb-5">
         <GradeOutlinedIcon fontSize="large" style={{ marginRight: '8px' }} />
         <h2>meOne Konsultförmedling AB</h2>

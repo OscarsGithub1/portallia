@@ -39,7 +39,7 @@ const Deals = () => {
     },
     {
       company: "ABC Company",
-      status: "Avslutad",
+      status: "Avslutad", 
       description: "Sample 2",
       orderDate: "2023-05-15",
       number: "2",
