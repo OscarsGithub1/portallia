@@ -38,7 +38,7 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <div className="navbar-nav col-auto">
               <a className="nav-link border-right" href="/business-opportunities" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
-                Affärsmöjligheter
+                Förfrågningar
               </a>
               <a className="nav-link border-right" href="/deals" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
                 Avtal

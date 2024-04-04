@@ -17,6 +17,7 @@ import ProfileInformation from './components/ProfileInformation.jsx';
 import DealsDetailed from './components/DealsDetailed.jsx';
 import AddOpportunity from './components/AddOpportunity.jsx'; 
 import BusinessDetailed from './components/BusinessDetailed.jsx';
+import Deliveries from './components/Deliveries.jsx';
 
 
 
@@ -56,6 +57,9 @@ function App() {
         <AuthTokenRefresher /> {/* This will start the token refresh process */}
 
         <Switch>
+          <Route path="/deliveries">
+            <Deliveries />
+          </Route>
           <Route path="/addopportunity">
             <AddOpportunity/>
           </Route>

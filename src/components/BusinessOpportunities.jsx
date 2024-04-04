@@ -187,7 +187,7 @@ function BusinessOpportunities() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <AssignmentOutlinedIcon fontSize="large" style={{ marginRight: '10px', verticalAlign: 'middle' }} />
-                <h3 style={{ margin: '0' }}>Affärsmöjligheter</h3>
+                <h3 style={{ margin: '0' }}>Förfrågningar</h3>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}> {/* This div contains both the search field and the "Skapa Förfrågan" button */}
                 <Tooltip title="Sökfält: Företagsnamn, Beskrivning, Nummer" placement="bottom">
@@ -213,7 +213,7 @@ function BusinessOpportunities() {
                   style={{ backgroundColor: 'white', color: 'black', fontWeight: 'bold', borderRadius: '6px' }}
                   startIcon={<PostAddOutlinedIcon />}
                 >
-                Skapa Förfrågan
+                Skapa förfrågan
                 </Button>
               </div>
             </div>
@@ -267,7 +267,7 @@ function BusinessOpportunities() {
                 </TableHead>
                 <TableBody>
                   {filteredOpportunities.map((opportunity) => (
-                    <TableRow key={opportunity.number} component={Link} to={`/businessdetailed/${opportunity.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} >
+                    <TableRow key={opportunity.number} component={Link} to={`/SeeSpecifikOpportunity/${opportunity.company}`} style={{ textDecoration: 'none', cursor: 'pointer' }} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }} >
                       <TableCell sx={{ px: '35px', width: '8%' }}>{opportunity.number}</TableCell>
                       <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.company}</TableCell>
                       <TableCell sx={{ px: '10px', width: '8%' }}>{opportunity.description}</TableCell>

@@ -92,7 +92,7 @@ const Register = () => {
   };
 
   return (
-    <div className="register-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+    <div className="register-page" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
       <div className="register-container" style={{ backgroundColor: '#ffffff', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.7)', borderRadius: '28px', padding: '50px', width: '450px', height: '530px' }} >
         <div className="login-logo" href="" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img src={Logo} alt="Logo" style={{ textDecoration: 'none', maxHeight: '60px', marginBottom: '20px' }} />
