@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material';
+import { Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import EventOutlinedIcon from '@mui/icons-material/EventOutlined';
+import NumbersOutlinedIcon from '@mui/icons-material/NumbersOutlined';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 
 const Deliveries = () => {
   const [matches, setMatches] = useState([]);
@@ -12,6 +23,8 @@ const Deliveries = () => {
   const [updatedFields, setUpdatedFields] = useState({});
   const [showDetails, setShowDetails] = useState(false); // State to toggle visibility
   const history = useHistory();
+  const [pageCount, setPageCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchDeliveries = async () => {
@@ -29,7 +42,7 @@ const Deliveries = () => {
 
       try {
         const response = await axios.get(`https://api.webcrm.com/Deliveries/ByOrganisation/${organisationId}`, {
-          params: { Page: 1, Size: 50 },
+          params: { Page: currentPage, Size: 10 }, // Adjust the size as needed
           headers: {
             'Authorization': `Bearer ${token}`,
             'accept': 'text/plain',
@@ -49,7 +62,7 @@ const Deliveries = () => {
     };
 
     fetchDeliveries();
-  }, []);
+  }, [currentPage]); // Update the fetchDeliveries call when currentPage changes
 
   const handleMatchClick = async (deliveryId) => {
     const selected = matches.find(delivery => delivery.DeliveryId === deliveryId);
@@ -69,8 +82,8 @@ const Deliveries = () => {
     }));
   };
 
-  const handleSaveChanges = async () => {
-    // Your logic for saving changes...
+  const handleChangePage = (event, value) => {
+    setCurrentPage(value);
   };
 
   const handleCancel = () => {
@@ -101,10 +114,10 @@ const Deliveries = () => {
     <div>
       {!showDetails && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
-          <Paper elevation={10} style={{ width: '90%', padding: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
-              <AssignmentOutlinedIcon fontSize="large" style={{ marginRight: '10px' }} />
-              <h3>Deliveries</h3>
+          <div style={{ width: '90%', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+              <AssignmentTurnedInOutlinedIcon fontSize="large" style={{ marginRight: '10px' }} />
+              <h3 >Uppdrag</h3>
             </div>
 
             {loading && <p>Loading...</p>}
@@ -115,40 +128,94 @@ const Deliveries = () => {
                 <Table stickyHeader aria-label="sticky table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Delivery ID</TableCell>
-                      <TableCell>Person ID</TableCell>
-                      <TableCell>Opportunity Plus1</TableCell>
-                      <TableCell>Created At</TableCell>
-                      <TableCell>Delivery Number</TableCell>
-                      <TableCell>Created By</TableCell>
-                      <TableCell>Delivery Person ID</TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>                   
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <DescriptionOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Beskrivning
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <EventOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Startdatum
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <EventOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Slutdatum
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <NumbersOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Pris-h
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <NumbersOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Antal-h
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <PlaceOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Postort
+                        </div>
+                      </TableCell>
+                      <TableCell style={{fontWeight: 'bold' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <AccountBoxOutlinedIcon fontSize="small" sx={{ marginRight: '5px' }} />
+                          Ansvarig
+                        </div>
+                      </TableCell>
                       {/* Add more headers as needed */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {matches.map((match, index) => (
                       <TableRow key={index} hover onClick={() => handleMatchClick(match.DeliveryId)}>
-                        <TableCell>{match.DeliveryId}</TableCell>
-                        <TableCell>{match.DeliveryOpportunityPersonId}</TableCell>
-                        <TableCell>{match.DeliveryOpportunityPlus1}</TableCell>
-                        <TableCell>{new Date(match.DeliveryCreatedAt).toLocaleDateString()}</TableCell>
-                        <TableCell>{match.DeliveryNumber}</TableCell>
+                        <TableCell>{match.DeliveryOpportunityDescription}</TableCell>
+                        <TableCell>{match.DeliveryOpportunityCustom1}</TableCell>
+                        <TableCell>{match.DeliveryOpportunityCustom2}</TableCell>
+                        <TableCell>{match.DeliveryOpportunityCustom11}</TableCell>
+                        <TableCell>{match.DeliveryOpportunityCustom14}</TableCell>
+                        <TableCell>{match.DeliverySearch2}</TableCell>
                         <TableCell>{match.DeliveryCreatedBy}</TableCell>
-                        <TableCell>{match.DeliveryPersonId}</TableCell>
                         {/* Add more cells as needed */}
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
-              </TableContainer>
-            )}
-          </Paper>
+              </TableContainer>              
+            )}          
+              <div style={{ 
+                backgroundColor: 'white', 
+                borderRadius: '8px', 
+                display: 'flex', 
+                justifyContent: 'center', 
+                boxShadow: '0px 0px 2px rgba(0, 0, 0, 0.6)' 
+              }}>
+                <Pagination
+                  count={pageCount}
+                  page={currentPage}
+                  onChange={handleChangePage}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+                      {...item}
+                    />
+                  )}
+                />
+            </div>
+          </div>
         </div>
       )}
 
       {showDetails && selectedDeliveryDetails && (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Paper elevation={10} style={{ borderRadius: '18px', width: '85%', marginBottom: '60px', padding: '50px' }}>
+          <Paper elevation={10} style={{ borderRadius: '18px', width: '85%', marginBottom: '60px', padding: '50px', marginTop: '100px' }}>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
               <AssignmentOutlinedIcon fontSize="large" style={{ marginRight: '10px', verticalAlign: 'middle' }} />
               <h3 style={{ margin: 0 }}>Avtalsdetaljer</h3>
@@ -181,15 +248,12 @@ const Deliveries = () => {
             <div className="row mt-4">
               <div className="col-md-12">
                 <Button variant="contained" color="primary" onClick={handleCancel} style={{ border: '1px solid', borderRadius: '6px', marginRight: '30px' }}>
-                  Avbryt
-                </Button>
-                <Button variant="contained" color="primary" style={{ border: '1px solid', borderRadius: '6px' }} onClick={handleSaveChanges}>
-                  Spara
+                  Tillbaka
                 </Button>
               </div>  
             </div>
           </Paper>
-        </div>
+        </div>        
       )}
     </div>
   );

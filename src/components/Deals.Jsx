@@ -261,7 +261,7 @@ const Deals = () => {
                   />
                 )}
               />
-            </div>
+        </div>
       </div>
     </div>
   );

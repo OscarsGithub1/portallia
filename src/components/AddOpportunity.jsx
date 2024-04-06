@@ -175,14 +175,14 @@ const OpportunityForm = () => {
   // For checkboxes, use checked attribute and handleInputChange for onChange
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ margin: '50px' }}>        
-        <Paper elevation={10} style={{ width: '110%', padding: '30px', borderRadius: '18px'}}>
-          <Card.Body>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
-              <RequestQuoteOutlinedIcon fontSize="large" style={{ marginRight: '15px', verticalAlign: 'middle' }} />
-              <h3 style={{ margin: '0' }}>Skapa en förfrågan</h3>
-            </div>
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '100px', paddingBottom: '100px' }}>
+    <div>        
+      <Paper elevation={10} style={{ width: '100%', maxWidth: '600px', padding: '30px', borderRadius: '18px'}}>
+        <Card.Body>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
+            <RequestQuoteOutlinedIcon fontSize="large" style={{ marginRight: '15px', verticalAlign: 'middle' }} />
+            <h3 style={{ margin: '0' }}>Skapa en förfrågan</h3>
+          </div>
         <Form onSubmit={handleSubmit}>
           {/* 
       <div className="row">
@@ -966,7 +966,7 @@ const OpportunityForm = () => {
           </Card.Body>
         </Paper>
       </div>
-    </div>
+      </div>
     );
   };
 export default OpportunityForm;

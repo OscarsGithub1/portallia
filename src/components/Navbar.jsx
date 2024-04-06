@@ -54,7 +54,7 @@ const Navbar = () => {
               <a className="nav-link border-right" href="/business-opportunities" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
                 Förfrågningar
               </a>
-              <a className="nav-link border-right" href="/deals" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
+              <a className="nav-link border-right" href="/deliveries" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
                 Uppdrag
               </a>
               <a className="nav-link border-right" href="/document" style={{ fontSize: '1.4rem', marginLeft: '10px' }}>
@@ -63,7 +63,7 @@ const Navbar = () => {
             </div>
 
             <div style={{ marginRight: '20px', display: 'flex', alignItems: 'center' }} className="navbar-nav ms-auto">
-              <span>Guide</span>
+              <span>Snabbguide</span>
               <IconButton
                 aria-label="information"
                 aria-describedby="information-popover"
