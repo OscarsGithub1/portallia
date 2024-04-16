@@ -7,6 +7,7 @@ import FindPersonId from './FindPersonId.jsx'
 import SeeSpecifikOpportunity from './SeeSpecifikOpportunity.jsx';
 import OpportunitiesByOrganisation from './OpportunitiesByOrganisation.jsx';
 import { Logout } from '@mui/icons-material';
+import EmailChecker from './EmailChecker.jsx';
 
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
     <div className="container-fluid mt-5">
        <FindPersonId/>
        <OpportunitiesByOrganisation/>
+       <EmailChecker/>
        
       
       <div className="d-flex align-items-center mb-5">

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logo from '../assets/images/Meone_payoff_grey.png';
+import EmailChecker from './EmailChecker';
 
 const Login = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -108,6 +109,8 @@ const Login = ({ onLogin }) => {
           <button className="btn btn-link" onClick={handleCreateAccount}>Skapa konto</button>
         </div>
       </div>
+      
+
     </div>
   );
 };

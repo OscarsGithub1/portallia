@@ -66,25 +66,15 @@ const OpportunitiesByOrganisation = () => {
   return (
     <Box>
       <Deliveries/>
-      <UserOrganisations/>
-      <Typography variant="h6">Opportunities for Person ID: {personId}</Typography>
-      {opportunities.length > 0 ? (
-        opportunities.map((opportunity, index) => (
-          <Card key={index} sx={{ mb: 2, ':hover': { boxShadow: 6 } }} onClick={() => handleOpportunityClick(opportunity.OpportunityId)}>
-            <CardActionArea>
-              <CardContent>
-                <Typography variant="body1">Opportunity ID: {opportunity.OpportunityId}</Typography>
-                <Typography variant="body2">Description: {opportunity.OpportunityDescription}</Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))
-      ) : (
-        <Typography>No matching opportunities found for this person at pipeline level 1.</Typography>
-      )}
-       <AddOpportunity />
-      <OpportunityForm/>
-      <OpportunitiesListOne/>
+     {/*  <UserOrganisations/> */}
+       
+      
+      
+        <AddOpportunity /> 
+      
+      {/*  <OpportunityForm/> */}
+      
+     {/*  <OpportunitiesListOne/> */}
       
       
     </Box>

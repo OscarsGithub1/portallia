@@ -17,6 +17,7 @@ import Button from '@mui/material/Button'; // Import Button component from Mater
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import Tooltip from '@mui/material/Tooltip';
+import AddOpportunity from './AddOpportunity'
 
 function BusinessOpportunities() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -300,8 +301,11 @@ function BusinessOpportunities() {
               />
             </div>
           </div>
+      
         </div>
+              
       );
+      
 }    
 
 export default BusinessOpportunities;
