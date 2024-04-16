@@ -16,8 +16,7 @@ function Home() {
     <div className="container-fluid mt-5">
        <FindPersonId/>
        <OpportunitiesByOrganisation/>
-       <EmailChecker/>
-       
+   
       
       <div className="d-flex align-items-center mb-5">
         <GradeOutlinedIcon fontSize="large" style={{ marginRight: '8px' }} />
